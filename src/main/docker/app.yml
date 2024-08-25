@@ -10,7 +10,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mariadb://mariadb:3306/yaosyma?useLegacyDatetimeCode=false
       - SPRING_LIQUIBASE_URL=jdbc:mariadb://mariadb:3306/yaosyma?useLegacyDatetimeCode=false
     ports:
-      - 127.0.0.1:8081:8080
+      - 127.0.0.1:8080:8080
     healthcheck:
       test:
         - CMD
