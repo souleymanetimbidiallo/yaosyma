@@ -789,10 +789,11 @@
                 <profile.test>testdev</profile.test>
                 <liquibase-plugin.hibernate-dialect>org.hibernate.dialect.H2Dialect</liquibase-plugin.hibernate-dialect>
                 <liquibase-plugin.driver>org.h2.Driver</liquibase-plugin.driver>
-                <liquibase-plugin.url>jdbc:h2:tcp://localhost:18080/mem:yaosyma</liquibase-plugin.url>
-                <liquibase-plugin.username>yaosyma</liquibase-plugin.username>
+                <liquibase-plugin.url>jdbc:h2:mem:yaosyma;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=LEGACY</liquibase-plugin.url>
+                <liquibase-plugin.username>sa</liquibase-plugin.username>
                 <liquibase-plugin.password/>
             </properties>
+
             <dependencies>
                 <dependency>
                     <groupId>org.springframework.boot</groupId>
@@ -1176,7 +1177,8 @@
                         <groupId>org.liquibase</groupId>
                         <artifactId>liquibase-maven-plugin</artifactId>
                         <configuration combine.self="override">
-                            <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
+                            <changeLogFile>config/liquibase/master.xml</changeLogFile>
+                            <searchPath>src/main/resources/config/liquibase/changelog</searchPath>
                             <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                             <driver/>
                             <url>${env.JDBC_DATABASE_URL}</url>

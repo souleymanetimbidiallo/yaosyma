@@ -1,0 +1,47 @@
+{
+  "annotations": {
+    "changelogDate": "20240901104610"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "vehicleType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "driverName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "driverPhone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "trackingNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "TransportStatus",
+      "fieldValues": "SCHEDULED,IN_TRANSIT,DELIVERED,CANCELLED"
+    },
+    {
+      "fieldName": "estimatedDeliveryTime",
+      "fieldType": "Instant"
+    }
+  ],
+  "name": "Transport",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "order",
+      "relationshipName": "order",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

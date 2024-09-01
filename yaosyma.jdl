@@ -1,0 +1,107 @@
+// Entités principales
+
+entity Store {
+    name String required,
+    location String,
+    description String
+}
+
+entity Product {
+    name String required,
+    description String,
+    price BigDecimal required,
+    stockQuantity Integer required,
+    category String
+}
+
+entity Order {
+    orderDate Instant required,
+    totalPrice BigDecimal required,
+    status OrderStatus required,
+    paymentMethod PaymentMethod,
+    deliveryAddress String required
+}
+
+entity OrderItem {
+    quantity Integer required,
+    unitPrice BigDecimal required,
+    totalPrice BigDecimal required
+}
+
+entity Transport {
+    vehicleType String,
+    driverName String,
+    driverPhone String,
+    trackingNumber String unique,
+    status TransportStatus,
+    estimatedDeliveryTime Instant
+}
+
+entity Payment {
+    paymentDate Instant required,
+    amount BigDecimal required,
+    paymentMethod PaymentMethod required,
+    transactionId String unique,
+    status PaymentStatus required
+}
+
+entity UserProfile {
+    phoneNumber String,
+    address String,
+    birthDate LocalDate
+}
+
+// Enumérations
+
+enum OrderStatus {
+    PENDING,
+    CONFIRMED,
+    SHIPPED,
+    DELIVERED,
+    CANCELLED
+}
+
+enum PaymentMethod {
+    CASH_ON_DELIVERY,
+    MOBILE_MONEY,
+    CREDIT_CARD
+}
+
+enum TransportStatus {
+    SCHEDULED,
+    IN_TRANSIT,
+    DELIVERED,
+    CANCELLED
+}
+
+enum PaymentStatus {
+    PENDING,
+    COMPLETED,
+    FAILED,
+    REFUNDED
+}
+
+// Relations
+
+relationship ManyToOne {
+    Store{owner(login)} to User with builtInEntity,
+    Order{store(name)} to Store,
+    Order{user(login)} to User with builtInEntity,
+    OrderItem{order} to Order,
+    OrderItem{product(name)} to Product,
+    Transport{order} to Order,
+    Payment{order} to Order,
+    Payment{user(login)} to User with builtInEntity
+}
+
+relationship OneToOne {
+    UserProfile{user(login)} to User with builtInEntity
+}
+
+// Pagination, DTO, et Services
+
+paginate * with pagination
+
+dto * with mapstruct
+
+service all with serviceClass

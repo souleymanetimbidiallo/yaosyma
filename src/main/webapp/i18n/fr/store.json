@@ -1,0 +1,27 @@
+{
+  "yaosymaApp": {
+    "store": {
+      "home": {
+        "title": "Stores",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Store",
+        "createOrEditLabel": "Créer ou éditer un Store",
+        "notFound": "Aucun Store trouvé"
+      },
+      "created": "Un nouveau Store a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Store avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Store avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Store {{ id }} ?"
+      },
+      "detail": {
+        "title": "Store"
+      },
+      "id": "ID",
+      "name": "Name",
+      "location": "Location",
+      "description": "Description",
+      "owner": "Owner"
+    }
+  }
+}

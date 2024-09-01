@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (transport()) {
+      <div>
+        <h2 data-cy="transportDetailsHeading"><span jhiTranslate="yaosymaApp.transport.detail.title">Transport</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ transport()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.transport.vehicleType">Vehicle Type</span></dt>
+          <dd>
+            <span>{{ transport()!.vehicleType }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.transport.driverName">Driver Name</span></dt>
+          <dd>
+            <span>{{ transport()!.driverName }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.transport.driverPhone">Driver Phone</span></dt>
+          <dd>
+            <span>{{ transport()!.driverPhone }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.transport.trackingNumber">Tracking Number</span></dt>
+          <dd>
+            <span>{{ transport()!.trackingNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.transport.status">Status</span></dt>
+          <dd>
+            <span [jhiTranslate]="'yaosymaApp.TransportStatus.' + (transport()!.status ?? 'null')">{{
+              { null: '', SCHEDULED: 'SCHEDULED', IN_TRANSIT: 'IN_TRANSIT', DELIVERED: 'DELIVERED', CANCELLED: 'CANCELLED' }[
+                transport()!.status ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.transport.estimatedDeliveryTime">Estimated Delivery Time</span></dt>
+          <dd>
+            <span>{{ transport()!.estimatedDeliveryTime | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.transport.order">Order</span></dt>
+          <dd>
+            @if (transport()!.order) {
+              <div>
+                <a [routerLink]="['/order', transport()!.order?.id, 'view']">{{ transport()!.order?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/transport', transport()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

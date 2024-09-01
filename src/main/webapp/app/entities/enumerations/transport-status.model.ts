@@ -1,0 +1,9 @@
+export enum TransportStatus {
+  SCHEDULED = 'SCHEDULED',
+
+  IN_TRANSIT = 'IN_TRANSIT',
+
+  DELIVERED = 'DELIVERED',
+
+  CANCELLED = 'CANCELLED',
+}

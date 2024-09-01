@@ -8,9 +8,13 @@
       "entities": {
         "main": "Entités",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "blog": "Blog",
-        "post": "Post",
-        "tag": "Tag"
+        "store": "Store",
+        "product": "Product",
+        "order": "Order",
+        "orderItem": "Order Item",
+        "transport": "Transport",
+        "payment": "Payment",
+        "userProfile": "User Profile"
       },
       "account": {
         "main": "Compte",

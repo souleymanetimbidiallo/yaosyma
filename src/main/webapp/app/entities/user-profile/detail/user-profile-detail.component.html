@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (userProfile()) {
+      <div>
+        <h2 data-cy="userProfileDetailsHeading"><span jhiTranslate="yaosymaApp.userProfile.detail.title">User Profile</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ userProfile()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.userProfile.phoneNumber">Phone Number</span></dt>
+          <dd>
+            <span>{{ userProfile()!.phoneNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.userProfile.address">Address</span></dt>
+          <dd>
+            <span>{{ userProfile()!.address }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.userProfile.birthDate">Birth Date</span></dt>
+          <dd>
+            <span>{{ userProfile()!.birthDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.userProfile.user">User</span></dt>
+          <dd>
+            <span>{{ userProfile()!.user?.login }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/user-profile', userProfile()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
