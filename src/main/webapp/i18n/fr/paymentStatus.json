@@ -2,10 +2,10 @@
   "yaosymaApp": {
     "PaymentStatus": {
       "null": "",
-      "PENDING": "PENDING",
-      "COMPLETED": "COMPLETED",
-      "FAILED": "FAILED",
-      "REFUNDED": "REFUNDED"
+      "PENDING": "EN ATTENTE",
+      "COMPLETED": "COMPLÉTÉ",
+      "FAILED": "ÉCHOUÉ",
+      "REFUNDED": "REMBOURSÉ"
     }
   }
 }

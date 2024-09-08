@@ -5,3 +5,4 @@ webpack/
 target/
 coverage/
 target/classes/static/
+aws/dist/docutils/writers/s5_html/themes/default/slides.js

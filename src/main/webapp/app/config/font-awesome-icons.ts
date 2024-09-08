@@ -35,6 +35,8 @@ import {
   faUser,
   faUserPlus,
   faUsers,
+  faChartBar,
+  faCoffee,
   faUsersCog,
   faWrench,
   // jhipster-needle-add-icon-import
@@ -77,6 +79,8 @@ export const fontAwesomeIcons = [
   faUser,
   faUserPlus,
   faUsers,
+  faChartBar,
+  faCoffee,
   faUsersCog,
   faWrench,
   // jhipster-needle-add-icon-import

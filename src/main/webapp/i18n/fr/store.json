@@ -2,26 +2,26 @@
   "yaosymaApp": {
     "store": {
       "home": {
-        "title": "Stores",
+        "title": "Magasins",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Store",
-        "createOrEditLabel": "Créer ou éditer un Store",
-        "notFound": "Aucun Store trouvé"
+        "createLabel": "Créer un nouveau magasin",
+        "createOrEditLabel": "Créer ou éditer un magasin",
+        "notFound": "Aucun magasin trouvé"
       },
-      "created": "Un nouveau Store a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Store avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Store avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau magasin a été créé avec l'identifiant {{ param }}",
+      "updated": "Le magasin avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le magasin avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer le Store {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le magasin {{ id }} ?"
       },
       "detail": {
-        "title": "Store"
+        "title": "Magasin"
       },
       "id": "ID",
-      "name": "Name",
-      "location": "Location",
+      "name": "Nom",
+      "location": "Localisation",
       "description": "Description",
-      "owner": "Owner"
+      "owner": "Propriétaire"
     }
   }
 }

@@ -8,13 +8,13 @@
       "entities": {
         "main": "Entités",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "store": "Store",
-        "product": "Product",
-        "order": "Order",
-        "orderItem": "Order Item",
-        "transport": "Transport",
-        "payment": "Payment",
-        "userProfile": "User Profile"
+        "store": "Magasins",
+        "product": "Produits",
+        "order": "Commandes",
+        "orderItem": "Articles de commandes",
+        "transport": "Transports",
+        "payment": "Paiement",
+        "userProfile": "Profils"
       },
       "account": {
         "main": "Compte",
@@ -128,9 +128,9 @@
       "patternLogin": "Ce champ ne peut contenir que des lettres, des chiffres ou des adresses e-mail."
     },
     "filters": {
-      "set": "Following filters are set",
-      "clear": "Clear filter",
-      "clearAll": "Clear all filters"
+      "set": "Les filtres suivants sont appliqués",
+      "clear": "Effacer le filtre",
+      "clearAll": "Effacer tous les filtres"
     }
   },
   "error": {
@@ -142,9 +142,9 @@
     "userexists": "Login déjà utilisé !",
     "emailexists": "Email déjà utilisé !",
     "idexists": "Une nouvelle entité {{entityName}} ne peut pas avoir d'identifiant !",
-    "idnull": "Identifiant invalide",
-    "idinvalid": "Invalid Id",
-    "idnotfound": "ID cannot be found",
+    "idnull": "Identifiant null",
+    "idinvalid": "ID invalide",
+    "idnotfound": "ID introuvable",
     "file": {
       "could.not.extract": "Impossible d'extraire le fichier",
       "not.image": "Le fichier doit être une image et non du type \"{{ fileType }}\""

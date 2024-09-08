@@ -2,10 +2,10 @@
   "yaosymaApp": {
     "TransportStatus": {
       "null": "",
-      "SCHEDULED": "SCHEDULED",
-      "IN_TRANSIT": "IN_TRANSIT",
-      "DELIVERED": "DELIVERED",
-      "CANCELLED": "CANCELLED"
+      "SCHEDULED": "PLANIFIÉ",
+      "IN_TRANSIT": "EN TRANSIT",
+      "DELIVERED": "LIVRÉ",
+      "CANCELLED": "ANNULÉ"
     }
   }
 }

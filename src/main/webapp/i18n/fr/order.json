@@ -2,29 +2,29 @@
   "yaosymaApp": {
     "order": {
       "home": {
-        "title": "Orders",
+        "title": "Commandes",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Order",
-        "createOrEditLabel": "Créer ou éditer un Order",
-        "notFound": "Aucun Order trouvé"
+        "createLabel": "Créer une nouvelle commande",
+        "createOrEditLabel": "Créer ou éditer une Commande",
+        "notFound": "Aucune commande trouvé"
       },
-      "created": "Un nouveau Order a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Order avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Order avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouvelle commande a été créé avec l'identifiant {{ param }}",
+      "updated": "La commande avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "La commande avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer le Order {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer la commande {{ id }} ?"
       },
       "detail": {
-        "title": "Order"
+        "title": "Commande"
       },
       "id": "ID",
-      "orderDate": "Order Date",
-      "totalPrice": "Total Price",
-      "status": "Status",
-      "paymentMethod": "Payment Method",
-      "deliveryAddress": "Delivery Address",
-      "store": "Store",
-      "user": "User"
+      "orderDate": "Date de commande",
+      "totalPrice": "Prix total",
+      "status": "Statut",
+      "paymentMethod": "Méthode de paiement",
+      "deliveryAddress": "Adresse de livraison",
+      "store": "Magasin",
+      "user": "Utilisateur"
     }
   }
 }

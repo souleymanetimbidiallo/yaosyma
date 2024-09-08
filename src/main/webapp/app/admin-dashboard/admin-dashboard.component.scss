@@ -1,0 +1,83 @@
+// Variables pour faciliter les changements de couleurs
+$primary-color: #007bff;
+$success-color: #28a745;
+$info-color: #17a2b8;
+$white-color: #ffffff;
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+.container {
+  padding: 20px;
+
+  .display-4 {
+    font-weight: bold;
+    color: $primary-color;
+  }
+
+  .card {
+    box-shadow: 0px 4px 8px $shadow-color;
+    border: none;
+    border-radius: 8px;
+
+    .card-header {
+      font-size: 1.5rem;
+      font-weight: 600;
+      background-color: $primary-color;
+      color: $white-color;
+    }
+
+    &.bg-primary {
+      background-color: $primary-color;
+    }
+
+    &.bg-success {
+      background-color: $success-color;
+    }
+
+    &.bg-info {
+      background-color: $info-color;
+    }
+
+    .card-body {
+      padding: 20px;
+
+      .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+
+      .card-text {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: darken($white-color, 20%);
+      }
+    }
+  }
+
+  // Styles pour les activités récentes
+  .recent-activities {
+    margin-top: 20px;
+
+    .card-header {
+      background-color: darken($info-color, 10%);
+    }
+
+    .card-body {
+      background-color: $white-color;
+      padding: 20px;
+
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+
+        li {
+          padding: 10px 0;
+          border-bottom: 1px solid lighten($shadow-color, 40%);
+
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+}

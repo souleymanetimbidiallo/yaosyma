@@ -4,27 +4,27 @@
       "home": {
         "title": "Transports",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Transport",
-        "createOrEditLabel": "Créer ou éditer un Transport",
-        "notFound": "Aucun Transport trouvé"
+        "createLabel": "Créer un nouveau transport",
+        "createOrEditLabel": "Créer ou éditer un transport",
+        "notFound": "Aucun transport trouvé"
       },
-      "created": "Un nouveau Transport a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Transport avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Transport avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau transport a été créé avec l'identifiant {{ param }}",
+      "updated": "Le transport avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le transport avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer le Transport {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le transport {{ id }} ?"
       },
       "detail": {
         "title": "Transport"
       },
       "id": "ID",
-      "vehicleType": "Vehicle Type",
-      "driverName": "Driver Name",
-      "driverPhone": "Driver Phone",
-      "trackingNumber": "Tracking Number",
-      "status": "Status",
-      "estimatedDeliveryTime": "Estimated Delivery Time",
-      "order": "Order"
+      "vehicleType": "Type de véhicule",
+      "driverName": "Nom du conducteur",
+      "driverPhone": "Téléphone du conducteur",
+      "trackingNumber": "Numéro de suivi",
+      "status": "Statut",
+      "estimatedDeliveryTime": "Heure de livraison estimée",
+      "order": "Commande"
     }
   }
 }

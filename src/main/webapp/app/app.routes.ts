@@ -7,6 +7,8 @@ import { errorRoute } from './layouts/error/error.route';
 import HomeComponent from './home/home.component';
 import NavbarComponent from './layouts/navbar/navbar.component';
 import LoginComponent from './login/login.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
 
 const routes: Routes = [
   {
@@ -39,6 +41,24 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import(`./entities/entity.routes`),
+  },
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboardComponent,
+    canActivate: [UserRouteAccessService],
+    data: {
+      authorities: ['ROLE_ADMIN'],
+      pageTitle: 'Admin Dashboard',
+    }
+  },
+  {
+    path: 'client-dashboard',
+    component: ClientDashboardComponent,
+    canActivate: [UserRouteAccessService],
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'Client Dashboard',
+    }
   },
   ...errorRoute,
 ];

@@ -1,1 +1,9 @@
-src/main/docker/app.yml
+services:
+  app:
+    image: yaosyma:latest
+    volumes:
+      - ./src:/app/src
+      - ./target:/app/target
+    command: ./mvnw -DskipTests
+    ports:
+      - "8080:8080"

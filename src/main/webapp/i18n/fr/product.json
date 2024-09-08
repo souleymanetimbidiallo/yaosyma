@@ -2,27 +2,27 @@
   "yaosymaApp": {
     "product": {
       "home": {
-        "title": "Products",
+        "title": "Produits",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Product",
-        "createOrEditLabel": "Créer ou éditer un Product",
-        "notFound": "Aucun Product trouvé"
+        "createLabel": "Créer un nouveau produit",
+        "createOrEditLabel": "Créer ou éditer un produit",
+        "notFound": "Aucun produit trouvé"
       },
-      "created": "Un nouveau Product a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Product avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Product avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau produit a été créé avec l'identifiant {{ param }}",
+      "updated": "Le produit avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le produit avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer le Product {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le produit {{ id }} ?"
       },
       "detail": {
-        "title": "Product"
+        "title": "Produit"
       },
       "id": "ID",
-      "name": "Name",
+      "name": "Nom",
       "description": "Description",
-      "price": "Price",
-      "stockQuantity": "Stock Quantity",
-      "category": "Category"
+      "price": "Prix",
+      "stockQuantity": "Quantité en stock",
+      "category": "Catégorie"
     }
   }
 }

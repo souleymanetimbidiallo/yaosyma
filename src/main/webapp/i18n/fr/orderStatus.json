@@ -2,11 +2,11 @@
   "yaosymaApp": {
     "OrderStatus": {
       "null": "",
-      "PENDING": "PENDING",
-      "CONFIRMED": "CONFIRMED",
-      "SHIPPED": "SHIPPED",
-      "DELIVERED": "DELIVERED",
-      "CANCELLED": "CANCELLED"
+      "PENDING": "EN ATTENTE",
+      "CONFIRMED": "CONFIRMÉE",
+      "SHIPPED": "EXPÉDIÉE",
+      "DELIVERED": "LIVRÉE",
+      "CANCELLED": "ANNULÉE"
     }
   }
 }
