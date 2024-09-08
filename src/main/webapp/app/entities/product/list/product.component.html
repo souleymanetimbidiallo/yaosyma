@@ -56,6 +56,20 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="image">
+              <div class="d-flex">
+                <span jhiTranslate="yaosymaApp.product.image">Image</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="quantity">
+              <div class="d-flex">
+                <span jhiTranslate="yaosymaApp.product.quantity">Quantity</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col" jhiSortBy="price">
               <div class="d-flex">
                 <span jhiTranslate="yaosymaApp.product.price">Price</span>
@@ -63,17 +77,15 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="stockQuantity">
+            <th scope="col" jhiSortBy="category.name">
               <div class="d-flex">
-                <span jhiTranslate="yaosymaApp.product.stockQuantity">Stock Quantity</span>
-
+                <span jhiTranslate="yaosymaApp.product.category">Category</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="category">
+            <th scope="col" jhiSortBy="supplier.name">
               <div class="d-flex">
-                <span jhiTranslate="yaosymaApp.product.category">Category</span>
-
+                <span jhiTranslate="yaosymaApp.product.supplier">Supplier</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -88,9 +100,23 @@
               </td>
               <td>{{ product.name }}</td>
               <td>{{ product.description }}</td>
+              <td>{{ product.image }}</td>
+              <td>{{ product.quantity }}</td>
               <td>{{ product.price }}</td>
-              <td>{{ product.stockQuantity }}</td>
-              <td>{{ product.category }}</td>
+              <td>
+                @if (product.category) {
+                  <div>
+                    <a [routerLink]="['/category', product.category.id, 'view']">{{ product.category.name }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (product.supplier) {
+                  <div>
+                    <a [routerLink]="['/supplier', product.supplier.id, 'view']">{{ product.supplier.name }}</a>
+                  </div>
+                }
+              </td>
               <td class="text-end">
                 <div class="btn-group">
                   <a [routerLink]="['/product', product.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

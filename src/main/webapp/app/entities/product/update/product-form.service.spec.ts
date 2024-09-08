@@ -22,9 +22,11 @@ describe('Product Form Service', () => {
             id: expect.any(Object),
             name: expect.any(Object),
             description: expect.any(Object),
+            image: expect.any(Object),
+            quantity: expect.any(Object),
             price: expect.any(Object),
-            stockQuantity: expect.any(Object),
             category: expect.any(Object),
+            supplier: expect.any(Object),
           }),
         );
       });
@@ -37,9 +39,11 @@ describe('Product Form Service', () => {
             id: expect.any(Object),
             name: expect.any(Object),
             description: expect.any(Object),
+            image: expect.any(Object),
+            quantity: expect.any(Object),
             price: expect.any(Object),
-            stockQuantity: expect.any(Object),
             category: expect.any(Object),
+            supplier: expect.any(Object),
           }),
         );
       });

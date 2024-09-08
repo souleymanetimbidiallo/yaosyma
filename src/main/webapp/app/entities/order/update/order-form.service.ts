@@ -31,13 +31,14 @@ type OrderFormDefaults = Pick<NewOrder, 'id' | 'orderDate'>;
 
 type OrderFormGroupContent = {
   id: FormControl<OrderFormRawValue['id'] | NewOrder['id']>;
+  orderNumber: FormControl<OrderFormRawValue['orderNumber']>;
   orderDate: FormControl<OrderFormRawValue['orderDate']>;
   totalPrice: FormControl<OrderFormRawValue['totalPrice']>;
   status: FormControl<OrderFormRawValue['status']>;
   paymentMethod: FormControl<OrderFormRawValue['paymentMethod']>;
   deliveryAddress: FormControl<OrderFormRawValue['deliveryAddress']>;
-  store: FormControl<OrderFormRawValue['store']>;
-  user: FormControl<OrderFormRawValue['user']>;
+  signature: FormControl<OrderFormRawValue['signature']>;
+  client: FormControl<OrderFormRawValue['client']>;
 };
 
 export type OrderFormGroup = FormGroup<OrderFormGroupContent>;
@@ -57,6 +58,9 @@ export class OrderFormService {
           validators: [Validators.required],
         },
       ),
+      orderNumber: new FormControl(orderRawValue.orderNumber, {
+        validators: [Validators.required],
+      }),
       orderDate: new FormControl(orderRawValue.orderDate, {
         validators: [Validators.required],
       }),
@@ -66,12 +70,14 @@ export class OrderFormService {
       status: new FormControl(orderRawValue.status, {
         validators: [Validators.required],
       }),
-      paymentMethod: new FormControl(orderRawValue.paymentMethod),
+      paymentMethod: new FormControl(orderRawValue.paymentMethod, {
+        validators: [Validators.required],
+      }),
       deliveryAddress: new FormControl(orderRawValue.deliveryAddress, {
         validators: [Validators.required],
       }),
-      store: new FormControl(orderRawValue.store),
-      user: new FormControl(orderRawValue.user),
+      signature: new FormControl(orderRawValue.signature),
+      client: new FormControl(orderRawValue.client),
     });
   }
 

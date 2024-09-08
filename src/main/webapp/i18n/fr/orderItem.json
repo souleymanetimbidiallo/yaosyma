@@ -2,27 +2,28 @@
   "yaosymaApp": {
     "orderItem": {
       "home": {
-        "title": "Articles de commande",
+        "title": "Articles de Commande",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouvel article de commande",
-        "createOrEditLabel": "Créer ou éditer un article de commande",
-        "notFound": "Aucun article de commande trouvé"
+        "createLabel": "Créer un nouvel Article de Commande",
+        "createOrEditLabel": "Créer ou éditer un Article de Commande",
+        "notFound": "Aucun Article de Commande trouvé"
       },
-      "created": "Un nouvel article de commande a été créé avec l'identifiant {{ param }}",
-      "updated": "L'article de commande avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "L'article de commande avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouvel Article de Commande a été créé avec l'identifiant {{ param }}",
+      "updated": "L'Article de Commande avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "L'Article de Commande avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer l'article de commande {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer l'Article de Commande {{ id }} ?"
       },
       "detail": {
-        "title": "Article de commande"
+        "title": "Article de Commande"
       },
       "id": "ID",
       "quantity": "Quantité",
-      "unitPrice": "Prix unitaire",
-      "totalPrice": "Prix total",
-      "order": "Commande",
-      "product": "Produit"
+      "unitPrice": "Prix Unitaire",
+      "totalPrice": "Prix Total",
+      "product": "Produit",
+      "relatedOrder": "Commande Associée",
+      "order": "Commande"
     }
   }
 }

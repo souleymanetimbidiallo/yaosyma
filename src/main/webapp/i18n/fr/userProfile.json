@@ -2,25 +2,25 @@
   "yaosymaApp": {
     "userProfile": {
       "home": {
-        "title": "Profils Utilisateur",
+        "title": "Profils Utilisateurs",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau profil utilisateur",
-        "createOrEditLabel": "Créer ou éditer un profil utilisateur",
-        "notFound": "Aucun profil utilisateur trouvé"
+        "createLabel": "Créer un nouveau Profil Utilisateur",
+        "createOrEditLabel": "Créer ou éditer un Profil Utilisateur",
+        "notFound": "Aucun Profil Utilisateur trouvé"
       },
-      "created": "Un nouveau profil utilisateur a été créé avec l'identifiant {{ param }}",
-      "updated": "Le profil utilisateur avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le profil utilisateur avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Profil Utilisateur a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Profil Utilisateur avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Profil Utilisateur avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer le profil utilisateur {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le Profil Utilisateur {{ id }} ?"
       },
       "detail": {
         "title": "Profil Utilisateur"
       },
       "id": "ID",
-      "phoneNumber": "Numéro de téléphone",
+      "phoneNumber": "Numéro de Téléphone",
       "address": "Adresse",
-      "birthDate": "Date de naissance",
+      "birthDate": "Date de Naissance",
       "user": "Utilisateur"
     }
   }

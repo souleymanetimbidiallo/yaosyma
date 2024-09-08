@@ -1,0 +1,158 @@
+<div>
+  <h2 id="page-heading" data-cy="VehicleHeading">
+    <span jhiTranslate="yaosymaApp.vehicle.home.title">Vehicles</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="yaosymaApp.vehicle.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-vehicle"
+        [routerLink]="['/vehicle/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="yaosymaApp.vehicle.home.createLabel">Créer un nouveau Vehicle</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (vehicles?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="yaosymaApp.vehicle.home.notFound">Aucun Vehicle trouvé</span>
+    </div>
+  }
+
+  @if (vehicles && vehicles.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="vehicleName">
+              <div class="d-flex">
+                <span jhiTranslate="yaosymaApp.vehicle.vehicleName">Vehicle Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="licensePlate">
+              <div class="d-flex">
+                <span jhiTranslate="yaosymaApp.vehicle.licensePlate">License Plate</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="serialNumber">
+              <div class="d-flex">
+                <span jhiTranslate="yaosymaApp.vehicle.serialNumber">Serial Number</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="insurance">
+              <div class="d-flex">
+                <span jhiTranslate="yaosymaApp.vehicle.insurance">Insurance</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="vehicleType">
+              <div class="d-flex">
+                <span jhiTranslate="yaosymaApp.vehicle.vehicleType">Vehicle Type</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="gpsTracker">
+              <div class="d-flex">
+                <span jhiTranslate="yaosymaApp.vehicle.gpsTracker">Gps Tracker</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="driver.firstName">
+              <div class="d-flex">
+                <span jhiTranslate="yaosymaApp.vehicle.driver">Driver</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (vehicle of vehicles; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/vehicle', vehicle.id, 'view']">{{ vehicle.id }}</a>
+              </td>
+              <td>{{ vehicle.vehicleName }}</td>
+              <td>{{ vehicle.licensePlate }}</td>
+              <td>{{ vehicle.serialNumber }}</td>
+              <td>{{ vehicle.insurance }}</td>
+              <td>{{ vehicle.vehicleType }}</td>
+              <td>{{ vehicle.gpsTracker }}</td>
+              <td>
+                @if (vehicle.driver) {
+                  <div>
+                    <a [routerLink]="['/driver', vehicle.driver.id, 'view']">{{ vehicle.driver.firstName }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/vehicle', vehicle.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/vehicle', vehicle.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(vehicle)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (vehicles && vehicles.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

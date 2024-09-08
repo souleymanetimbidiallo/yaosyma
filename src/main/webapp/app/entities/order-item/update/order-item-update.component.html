@@ -77,16 +77,6 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_order" jhiTranslate="yaosymaApp.orderItem.order">Order</label>
-          <select class="form-control" id="field_order" data-cy="order" name="order" formControlName="order" [compareWith]="compareOrder">
-            <option [ngValue]="null"></option>
-            @for (orderOption of ordersSharedCollection; track $index) {
-              <option [ngValue]="orderOption">{{ orderOption.id }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
           <label class="form-label" for="field_product" jhiTranslate="yaosymaApp.orderItem.product">Product</label>
           <select
             class="form-control"
@@ -99,6 +89,33 @@
             <option [ngValue]="null"></option>
             @for (productOption of productsSharedCollection; track $index) {
               <option [ngValue]="productOption">{{ productOption.name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_relatedOrder" jhiTranslate="yaosymaApp.orderItem.relatedOrder">Related Order</label>
+          <select
+            class="form-control"
+            id="field_relatedOrder"
+            data-cy="relatedOrder"
+            name="relatedOrder"
+            formControlName="relatedOrder"
+            [compareWith]="compareOrder"
+          >
+            <option [ngValue]="null"></option>
+            @for (orderOption of ordersSharedCollection; track $index) {
+              <option [ngValue]="orderOption">{{ orderOption.orderNumber }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_order" jhiTranslate="yaosymaApp.orderItem.order">Order</label>
+          <select class="form-control" id="field_order" data-cy="order" name="order" formControlName="order" [compareWith]="compareOrder">
+            <option [ngValue]="null"></option>
+            @for (orderOption of ordersSharedCollection; track $index) {
+              <option [ngValue]="orderOption">{{ orderOption.id }}</option>
             }
           </select>
         </div>

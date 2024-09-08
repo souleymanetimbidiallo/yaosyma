@@ -18,13 +18,15 @@
         "title": "Order"
       },
       "id": "ID",
+      "orderNumber": "Order Number",
       "orderDate": "Order Date",
       "totalPrice": "Total Price",
       "status": "Status",
       "paymentMethod": "Payment Method",
       "deliveryAddress": "Delivery Address",
-      "store": "Store",
-      "user": "User"
+      "signature": "Signature",
+      "orderItems": "Order Items",
+      "client": "Client"
     }
   }
 }

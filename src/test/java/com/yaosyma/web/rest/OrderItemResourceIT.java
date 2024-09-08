@@ -373,7 +373,7 @@ class OrderItemResourceIT {
         OrderItem partialUpdatedOrderItem = new OrderItem();
         partialUpdatedOrderItem.setId(orderItem.getId());
 
-        partialUpdatedOrderItem.quantity(UPDATED_QUANTITY);
+        partialUpdatedOrderItem.unitPrice(UPDATED_UNIT_PRICE).totalPrice(UPDATED_TOTAL_PRICE);
 
         restOrderItemMockMvc
             .perform(

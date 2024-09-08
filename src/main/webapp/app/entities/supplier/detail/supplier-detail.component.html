@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (supplier()) {
+      <div>
+        <h2 data-cy="supplierDetailsHeading"><span jhiTranslate="yaosymaApp.supplier.detail.title">Supplier</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ supplier()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.supplier.name">Name</span></dt>
+          <dd>
+            <span>{{ supplier()!.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.supplier.description">Description</span></dt>
+          <dd>
+            <span>{{ supplier()!.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.supplier.address">Address</span></dt>
+          <dd>
+            <span>{{ supplier()!.address }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.supplier.phone">Phone</span></dt>
+          <dd>
+            <span>{{ supplier()!.phone }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.supplier.email">Email</span></dt>
+          <dd>
+            <span>{{ supplier()!.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.supplier.image">Image</span></dt>
+          <dd>
+            <span>{{ supplier()!.image }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/supplier', supplier()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

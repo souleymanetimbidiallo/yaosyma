@@ -18,13 +18,17 @@ public class ProductDTO implements Serializable {
 
     private String description;
 
+    private String image;
+
+    @NotNull
+    private Integer quantity;
+
     @NotNull
     private BigDecimal price;
 
-    @NotNull
-    private Integer stockQuantity;
+    private CategoryDTO category;
 
-    private String category;
+    private SupplierDTO supplier;
 
     public Long getId() {
         return id;
@@ -50,6 +54,22 @@ public class ProductDTO implements Serializable {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     public BigDecimal getPrice() {
         return price;
     }
@@ -58,20 +78,20 @@ public class ProductDTO implements Serializable {
         this.price = price;
     }
 
-    public Integer getStockQuantity() {
-        return stockQuantity;
-    }
-
-    public void setStockQuantity(Integer stockQuantity) {
-        this.stockQuantity = stockQuantity;
-    }
-
-    public String getCategory() {
+    public CategoryDTO getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(CategoryDTO category) {
         this.category = category;
+    }
+
+    public SupplierDTO getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(SupplierDTO supplier) {
+        this.supplier = supplier;
     }
 
     @Override
@@ -102,9 +122,11 @@ public class ProductDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
+            ", image='" + getImage() + "'" +
+            ", quantity=" + getQuantity() +
             ", price=" + getPrice() +
-            ", stockQuantity=" + getStockQuantity() +
-            ", category='" + getCategory() + "'" +
+            ", category=" + getCategory() +
+            ", supplier=" + getSupplier() +
             "}";
     }
 }

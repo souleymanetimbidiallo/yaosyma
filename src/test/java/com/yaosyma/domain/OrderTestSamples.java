@@ -10,14 +10,18 @@ public class OrderTestSamples {
     private static final AtomicLong longCount = new AtomicLong(random.nextInt() + (2 * Integer.MAX_VALUE));
 
     public static Order getOrderSample1() {
-        return new Order().id(1L).deliveryAddress("deliveryAddress1");
+        return new Order().id(1L).orderNumber("orderNumber1").deliveryAddress("deliveryAddress1").signature("signature1");
     }
 
     public static Order getOrderSample2() {
-        return new Order().id(2L).deliveryAddress("deliveryAddress2");
+        return new Order().id(2L).orderNumber("orderNumber2").deliveryAddress("deliveryAddress2").signature("signature2");
     }
 
     public static Order getOrderRandomSampleGenerator() {
-        return new Order().id(longCount.incrementAndGet()).deliveryAddress(UUID.randomUUID().toString());
+        return new Order()
+            .id(longCount.incrementAndGet())
+            .orderNumber(UUID.randomUUID().toString())
+            .deliveryAddress(UUID.randomUUID().toString())
+            .signature(UUID.randomUUID().toString());
     }
 }

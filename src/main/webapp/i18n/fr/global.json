@@ -4,17 +4,22 @@
     "browsehappy": "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
     "menu": {
       "home": "Accueil",
+      "dashboard": "Dashbaord",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entités",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "store": "Magasins",
         "product": "Produits",
         "order": "Commandes",
-        "orderItem": "Articles de commandes",
-        "transport": "Transports",
-        "payment": "Paiement",
-        "userProfile": "Profils"
+        "orderItem": "Articles de Commande",
+        "payment": "Paiements",
+        "userProfile": "Profils Utilisateur",
+        "category": "Catégories",
+        "supplier": "Fournisseurs",
+        "client": "Clients",
+        "driver": "Chauffeurs",
+        "vehicle": "Véhicules",
+        "adminAuthority": "Autorisations"
       },
       "account": {
         "main": "Compte",
@@ -26,7 +31,7 @@
         "register": "Créer un compte"
       },
       "admin": {
-        "main": "Administration",
+        "main": "Admin",
         "userManagement": "Gestion des utilisateurs",
         "tracker": "Suivi des utilisateurs",
         "metrics": "Métriques",
@@ -128,9 +133,9 @@
       "patternLogin": "Ce champ ne peut contenir que des lettres, des chiffres ou des adresses e-mail."
     },
     "filters": {
-      "set": "Les filtres suivants sont appliqués",
-      "clear": "Effacer le filtre",
-      "clearAll": "Effacer tous les filtres"
+      "set": "Following filters are set",
+      "clear": "Clear filter",
+      "clearAll": "Clear all filters"
     }
   },
   "error": {
@@ -142,9 +147,9 @@
     "userexists": "Login déjà utilisé !",
     "emailexists": "Email déjà utilisé !",
     "idexists": "Une nouvelle entité {{entityName}} ne peut pas avoir d'identifiant !",
-    "idnull": "Identifiant null",
-    "idinvalid": "ID invalide",
-    "idnotfound": "ID introuvable",
+    "idnull": "Identifiant invalide",
+    "idinvalid": "Invalid Id",
+    "idnotfound": "ID cannot be found",
     "file": {
       "could.not.extract": "Impossible d'extraire le fichier",
       "not.image": "Le fichier doit être une image et non du type \"{{ fileType }}\""

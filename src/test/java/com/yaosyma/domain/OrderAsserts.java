@@ -48,6 +48,7 @@ public class OrderAsserts {
     public static void assertOrderUpdatableFieldsEquals(Order expected, Order actual) {
         assertThat(expected)
             .as("Verify Order relevant properties")
+            .satisfies(e -> assertThat(e.getOrderNumber()).as("check orderNumber").isEqualTo(actual.getOrderNumber()))
             .satisfies(e -> assertThat(e.getOrderDate()).as("check orderDate").isEqualTo(actual.getOrderDate()))
             .satisfies(
                 e ->
@@ -58,7 +59,8 @@ public class OrderAsserts {
             )
             .satisfies(e -> assertThat(e.getStatus()).as("check status").isEqualTo(actual.getStatus()))
             .satisfies(e -> assertThat(e.getPaymentMethod()).as("check paymentMethod").isEqualTo(actual.getPaymentMethod()))
-            .satisfies(e -> assertThat(e.getDeliveryAddress()).as("check deliveryAddress").isEqualTo(actual.getDeliveryAddress()));
+            .satisfies(e -> assertThat(e.getDeliveryAddress()).as("check deliveryAddress").isEqualTo(actual.getDeliveryAddress()))
+            .satisfies(e -> assertThat(e.getSignature()).as("check signature").isEqualTo(actual.getSignature()));
     }
 
     /**
@@ -70,6 +72,6 @@ public class OrderAsserts {
     public static void assertOrderUpdatableRelationshipsEquals(Order expected, Order actual) {
         assertThat(expected)
             .as("Verify Order relationships")
-            .satisfies(e -> assertThat(e.getStore()).as("check store").isEqualTo(actual.getStore()));
+            .satisfies(e -> assertThat(e.getClient()).as("check client").isEqualTo(actual.getClient()));
     }
 }

@@ -15,23 +15,38 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "price",
-      "fieldType": "BigDecimal",
-      "fieldValidateRules": ["required"]
+      "fieldName": "image",
+      "fieldType": "String"
     },
     {
-      "fieldName": "stockQuantity",
+      "fieldName": "quantity",
       "fieldType": "Integer",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "category",
-      "fieldType": "String"
+      "fieldName": "price",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
     }
   ],
   "name": "Product",
   "pagination": "pagination",
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "category",
+      "relationshipName": "category",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "supplier",
+      "relationshipName": "supplier",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
   "searchEngine": "no",
   "service": "serviceClass"
 }

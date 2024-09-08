@@ -4,15 +4,15 @@
       "home": {
         "title": "Produits",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau produit",
-        "createOrEditLabel": "Créer ou éditer un produit",
-        "notFound": "Aucun produit trouvé"
+        "createLabel": "Créer un nouveau Produit",
+        "createOrEditLabel": "Créer ou éditer un Produit",
+        "notFound": "Aucun Produit trouvé"
       },
-      "created": "Un nouveau produit a été créé avec l'identifiant {{ param }}",
-      "updated": "Le produit avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le produit avec l'identifiant {{ param }} a été supprimé",
+      "created": "Un nouveau Produit a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Produit avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Produit avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer le produit {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer le Produit {{ id }} ?"
       },
       "detail": {
         "title": "Produit"
@@ -20,9 +20,11 @@
       "id": "ID",
       "name": "Nom",
       "description": "Description",
+      "image": "Image",
+      "quantity": "Quantité",
       "price": "Prix",
-      "stockQuantity": "Quantité en stock",
-      "category": "Catégorie"
+      "category": "Catégorie",
+      "supplier": "Fournisseur"
     }
   }
 }

@@ -20,9 +20,11 @@ type ProductFormGroupContent = {
   id: FormControl<IProduct['id'] | NewProduct['id']>;
   name: FormControl<IProduct['name']>;
   description: FormControl<IProduct['description']>;
+  image: FormControl<IProduct['image']>;
+  quantity: FormControl<IProduct['quantity']>;
   price: FormControl<IProduct['price']>;
-  stockQuantity: FormControl<IProduct['stockQuantity']>;
   category: FormControl<IProduct['category']>;
+  supplier: FormControl<IProduct['supplier']>;
 };
 
 export type ProductFormGroup = FormGroup<ProductFormGroupContent>;
@@ -46,13 +48,15 @@ export class ProductFormService {
         validators: [Validators.required],
       }),
       description: new FormControl(productRawValue.description),
+      image: new FormControl(productRawValue.image),
+      quantity: new FormControl(productRawValue.quantity, {
+        validators: [Validators.required],
+      }),
       price: new FormControl(productRawValue.price, {
         validators: [Validators.required],
       }),
-      stockQuantity: new FormControl(productRawValue.stockQuantity, {
-        validators: [Validators.required],
-      }),
       category: new FormControl(productRawValue.category),
+      supplier: new FormControl(productRawValue.supplier),
     });
   }
 

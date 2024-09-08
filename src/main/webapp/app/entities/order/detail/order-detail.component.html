@@ -15,6 +15,10 @@
           <dd>
             <span>{{ order()!.id }}</span>
           </dd>
+          <dt><span jhiTranslate="yaosymaApp.order.orderNumber">Order Number</span></dt>
+          <dd>
+            <span>{{ order()!.orderNumber }}</span>
+          </dd>
           <dt><span jhiTranslate="yaosymaApp.order.orderDate">Order Date</span></dt>
           <dd>
             <span>{{ order()!.orderDate | formatMediumDatetime }}</span>
@@ -34,26 +38,30 @@
           <dt><span jhiTranslate="yaosymaApp.order.paymentMethod">Payment Method</span></dt>
           <dd>
             <span [jhiTranslate]="'yaosymaApp.PaymentMethod.' + (order()!.paymentMethod ?? 'null')">{{
-              { null: '', CASH_ON_DELIVERY: 'CASH_ON_DELIVERY', MOBILE_MONEY: 'MOBILE_MONEY', CREDIT_CARD: 'CREDIT_CARD' }[
-                order()!.paymentMethod ?? 'null'
-              ]
+              {
+                null: '',
+                CREDIT_CARD: 'CREDIT_CARD',
+                PAYPAL: 'PAYPAL',
+                BANK_TRANSFER: 'BANK_TRANSFER',
+                CASH_ON_DELIVERY: 'CASH_ON_DELIVERY',
+              }[order()!.paymentMethod ?? 'null']
             }}</span>
           </dd>
           <dt><span jhiTranslate="yaosymaApp.order.deliveryAddress">Delivery Address</span></dt>
           <dd>
             <span>{{ order()!.deliveryAddress }}</span>
           </dd>
-          <dt><span jhiTranslate="yaosymaApp.order.store">Store</span></dt>
+          <dt><span jhiTranslate="yaosymaApp.order.signature">Signature</span></dt>
           <dd>
-            @if (order()!.store) {
+            <span>{{ order()!.signature }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.order.client">Client</span></dt>
+          <dd>
+            @if (order()!.client) {
               <div>
-                <a [routerLink]="['/store', order()!.store?.id, 'view']">{{ order()!.store?.name }}</a>
+                <a [routerLink]="['/client', order()!.client?.id, 'view']">{{ order()!.client?.email }}</a>
               </div>
             }
-          </dd>
-          <dt><span jhiTranslate="yaosymaApp.order.user">User</span></dt>
-          <dd>
-            <span>{{ order()!.user?.login }}</span>
           </dd>
         </dl>
 

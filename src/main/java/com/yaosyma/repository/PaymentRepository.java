@@ -14,9 +14,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
-    @Query("select payment from Payment payment where payment.user.login = ?#{authentication.name}")
-    List<Payment> findByUserIsCurrentUser();
-
     default Optional<Payment> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);
     }
@@ -30,14 +27,14 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     }
 
     @Query(
-        value = "select payment from Payment payment left join fetch payment.user",
+        value = "select payment from Payment payment left join fetch payment.order left join fetch payment.client",
         countQuery = "select count(payment) from Payment payment"
     )
     Page<Payment> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select payment from Payment payment left join fetch payment.user")
+    @Query("select payment from Payment payment left join fetch payment.order left join fetch payment.client")
     List<Payment> findAllWithToOneRelationships();
 
-    @Query("select payment from Payment payment left join fetch payment.user where payment.id =:id")
+    @Query("select payment from Payment payment left join fetch payment.order left join fetch payment.client where payment.id =:id")
     Optional<Payment> findOneWithToOneRelationships(@Param("id") Long id);
 }

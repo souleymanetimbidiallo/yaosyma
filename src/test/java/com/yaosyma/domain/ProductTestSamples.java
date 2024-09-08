@@ -12,11 +12,11 @@ public class ProductTestSamples {
     private static final AtomicInteger intCount = new AtomicInteger(random.nextInt() + (2 * Short.MAX_VALUE));
 
     public static Product getProductSample1() {
-        return new Product().id(1L).name("name1").description("description1").stockQuantity(1).category("category1");
+        return new Product().id(1L).name("name1").description("description1").image("image1").quantity(1);
     }
 
     public static Product getProductSample2() {
-        return new Product().id(2L).name("name2").description("description2").stockQuantity(2).category("category2");
+        return new Product().id(2L).name("name2").description("description2").image("image2").quantity(2);
     }
 
     public static Product getProductRandomSampleGenerator() {
@@ -24,7 +24,7 @@ public class ProductTestSamples {
             .id(longCount.incrementAndGet())
             .name(UUID.randomUUID().toString())
             .description(UUID.randomUUID().toString())
-            .stockQuantity(intCount.incrementAndGet())
-            .category(UUID.randomUUID().toString());
+            .image(UUID.randomUUID().toString())
+            .quantity(intCount.incrementAndGet());
     }
 }

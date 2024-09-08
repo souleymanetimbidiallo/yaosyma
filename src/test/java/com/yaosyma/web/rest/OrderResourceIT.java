@@ -15,7 +15,6 @@ import com.yaosyma.domain.Order;
 import com.yaosyma.domain.enumeration.OrderStatus;
 import com.yaosyma.domain.enumeration.PaymentMethod;
 import com.yaosyma.repository.OrderRepository;
-import com.yaosyma.repository.UserRepository;
 import com.yaosyma.service.OrderService;
 import com.yaosyma.service.dto.OrderDTO;
 import com.yaosyma.service.mapper.OrderMapper;
@@ -50,6 +49,9 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class OrderResourceIT {
 
+    private static final String DEFAULT_ORDER_NUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_ORDER_NUMBER = "BBBBBBBBBB";
+
     private static final Instant DEFAULT_ORDER_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_ORDER_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
@@ -59,11 +61,14 @@ class OrderResourceIT {
     private static final OrderStatus DEFAULT_STATUS = OrderStatus.PENDING;
     private static final OrderStatus UPDATED_STATUS = OrderStatus.CONFIRMED;
 
-    private static final PaymentMethod DEFAULT_PAYMENT_METHOD = PaymentMethod.CASH_ON_DELIVERY;
-    private static final PaymentMethod UPDATED_PAYMENT_METHOD = PaymentMethod.MOBILE_MONEY;
+    private static final PaymentMethod DEFAULT_PAYMENT_METHOD = PaymentMethod.CREDIT_CARD;
+    private static final PaymentMethod UPDATED_PAYMENT_METHOD = PaymentMethod.PAYPAL;
 
     private static final String DEFAULT_DELIVERY_ADDRESS = "AAAAAAAAAA";
     private static final String UPDATED_DELIVERY_ADDRESS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_SIGNATURE = "AAAAAAAAAA";
+    private static final String UPDATED_SIGNATURE = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/orders";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -76,9 +81,6 @@ class OrderResourceIT {
 
     @Autowired
     private OrderRepository orderRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Mock
     private OrderRepository orderRepositoryMock;
@@ -107,11 +109,13 @@ class OrderResourceIT {
      */
     public static Order createEntity(EntityManager em) {
         Order order = new Order()
+            .orderNumber(DEFAULT_ORDER_NUMBER)
             .orderDate(DEFAULT_ORDER_DATE)
             .totalPrice(DEFAULT_TOTAL_PRICE)
             .status(DEFAULT_STATUS)
             .paymentMethod(DEFAULT_PAYMENT_METHOD)
-            .deliveryAddress(DEFAULT_DELIVERY_ADDRESS);
+            .deliveryAddress(DEFAULT_DELIVERY_ADDRESS)
+            .signature(DEFAULT_SIGNATURE);
         return order;
     }
 
@@ -123,11 +127,13 @@ class OrderResourceIT {
      */
     public static Order createUpdatedEntity(EntityManager em) {
         Order order = new Order()
+            .orderNumber(UPDATED_ORDER_NUMBER)
             .orderDate(UPDATED_ORDER_DATE)
             .totalPrice(UPDATED_TOTAL_PRICE)
             .status(UPDATED_STATUS)
             .paymentMethod(UPDATED_PAYMENT_METHOD)
-            .deliveryAddress(UPDATED_DELIVERY_ADDRESS);
+            .deliveryAddress(UPDATED_DELIVERY_ADDRESS)
+            .signature(UPDATED_SIGNATURE);
         return order;
     }
 
@@ -188,6 +194,23 @@ class OrderResourceIT {
 
     @Test
     @Transactional
+    void checkOrderNumberIsRequired() throws Exception {
+        long databaseSizeBeforeTest = getRepositoryCount();
+        // set the field null
+        order.setOrderNumber(null);
+
+        // Create the Order, which fails.
+        OrderDTO orderDTO = orderMapper.toDto(order);
+
+        restOrderMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(orderDTO)))
+            .andExpect(status().isBadRequest());
+
+        assertSameRepositoryCount(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void checkOrderDateIsRequired() throws Exception {
         long databaseSizeBeforeTest = getRepositoryCount();
         // set the field null
@@ -239,6 +262,23 @@ class OrderResourceIT {
 
     @Test
     @Transactional
+    void checkPaymentMethodIsRequired() throws Exception {
+        long databaseSizeBeforeTest = getRepositoryCount();
+        // set the field null
+        order.setPaymentMethod(null);
+
+        // Create the Order, which fails.
+        OrderDTO orderDTO = orderMapper.toDto(order);
+
+        restOrderMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(om.writeValueAsBytes(orderDTO)))
+            .andExpect(status().isBadRequest());
+
+        assertSameRepositoryCount(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void checkDeliveryAddressIsRequired() throws Exception {
         long databaseSizeBeforeTest = getRepositoryCount();
         // set the field null
@@ -266,11 +306,13 @@ class OrderResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(order.getId().intValue())))
+            .andExpect(jsonPath("$.[*].orderNumber").value(hasItem(DEFAULT_ORDER_NUMBER)))
             .andExpect(jsonPath("$.[*].orderDate").value(hasItem(DEFAULT_ORDER_DATE.toString())))
             .andExpect(jsonPath("$.[*].totalPrice").value(hasItem(sameNumber(DEFAULT_TOTAL_PRICE))))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].paymentMethod").value(hasItem(DEFAULT_PAYMENT_METHOD.toString())))
-            .andExpect(jsonPath("$.[*].deliveryAddress").value(hasItem(DEFAULT_DELIVERY_ADDRESS)));
+            .andExpect(jsonPath("$.[*].deliveryAddress").value(hasItem(DEFAULT_DELIVERY_ADDRESS)))
+            .andExpect(jsonPath("$.[*].signature").value(hasItem(DEFAULT_SIGNATURE)));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -302,11 +344,13 @@ class OrderResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(order.getId().intValue()))
+            .andExpect(jsonPath("$.orderNumber").value(DEFAULT_ORDER_NUMBER))
             .andExpect(jsonPath("$.orderDate").value(DEFAULT_ORDER_DATE.toString()))
             .andExpect(jsonPath("$.totalPrice").value(sameNumber(DEFAULT_TOTAL_PRICE)))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.paymentMethod").value(DEFAULT_PAYMENT_METHOD.toString()))
-            .andExpect(jsonPath("$.deliveryAddress").value(DEFAULT_DELIVERY_ADDRESS));
+            .andExpect(jsonPath("$.deliveryAddress").value(DEFAULT_DELIVERY_ADDRESS))
+            .andExpect(jsonPath("$.signature").value(DEFAULT_SIGNATURE));
     }
 
     @Test
@@ -329,11 +373,13 @@ class OrderResourceIT {
         // Disconnect from session so that the updates on updatedOrder are not directly saved in db
         em.detach(updatedOrder);
         updatedOrder
+            .orderNumber(UPDATED_ORDER_NUMBER)
             .orderDate(UPDATED_ORDER_DATE)
             .totalPrice(UPDATED_TOTAL_PRICE)
             .status(UPDATED_STATUS)
             .paymentMethod(UPDATED_PAYMENT_METHOD)
-            .deliveryAddress(UPDATED_DELIVERY_ADDRESS);
+            .deliveryAddress(UPDATED_DELIVERY_ADDRESS)
+            .signature(UPDATED_SIGNATURE);
         OrderDTO orderDTO = orderMapper.toDto(updatedOrder);
 
         restOrderMockMvc
@@ -419,7 +465,7 @@ class OrderResourceIT {
         Order partialUpdatedOrder = new Order();
         partialUpdatedOrder.setId(order.getId());
 
-        partialUpdatedOrder.orderDate(UPDATED_ORDER_DATE).status(UPDATED_STATUS).paymentMethod(UPDATED_PAYMENT_METHOD);
+        partialUpdatedOrder.status(UPDATED_STATUS).paymentMethod(UPDATED_PAYMENT_METHOD);
 
         restOrderMockMvc
             .perform(
@@ -448,11 +494,13 @@ class OrderResourceIT {
         partialUpdatedOrder.setId(order.getId());
 
         partialUpdatedOrder
+            .orderNumber(UPDATED_ORDER_NUMBER)
             .orderDate(UPDATED_ORDER_DATE)
             .totalPrice(UPDATED_TOTAL_PRICE)
             .status(UPDATED_STATUS)
             .paymentMethod(UPDATED_PAYMENT_METHOD)
-            .deliveryAddress(UPDATED_DELIVERY_ADDRESS);
+            .deliveryAddress(UPDATED_DELIVERY_ADDRESS)
+            .signature(UPDATED_SIGNATURE);
 
         restOrderMockMvc
             .perform(

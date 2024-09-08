@@ -21,8 +21,9 @@
       "quantity": "Quantity",
       "unitPrice": "Unit Price",
       "totalPrice": "Total Price",
-      "order": "Order",
-      "product": "Product"
+      "product": "Product",
+      "relatedOrder": "Related Order",
+      "order": "Order"
     }
   }
 }

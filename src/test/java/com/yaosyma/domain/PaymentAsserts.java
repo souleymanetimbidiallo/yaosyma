@@ -50,7 +50,7 @@ public class PaymentAsserts {
             .as("Verify Payment relevant properties")
             .satisfies(e -> assertThat(e.getPaymentDate()).as("check paymentDate").isEqualTo(actual.getPaymentDate()))
             .satisfies(e -> assertThat(e.getAmount()).as("check amount").usingComparator(bigDecimalCompareTo).isEqualTo(actual.getAmount()))
-            .satisfies(e -> assertThat(e.getPaymentMethod()).as("check paymentMethod").isEqualTo(actual.getPaymentMethod()))
+            .satisfies(e -> assertThat(e.getPaymentMode()).as("check paymentMode").isEqualTo(actual.getPaymentMode()))
             .satisfies(e -> assertThat(e.getTransactionId()).as("check transactionId").isEqualTo(actual.getTransactionId()))
             .satisfies(e -> assertThat(e.getStatus()).as("check status").isEqualTo(actual.getStatus()));
     }
@@ -64,6 +64,7 @@ public class PaymentAsserts {
     public static void assertPaymentUpdatableRelationshipsEquals(Payment expected, Payment actual) {
         assertThat(expected)
             .as("Verify Payment relationships")
-            .satisfies(e -> assertThat(e.getOrder()).as("check order").isEqualTo(actual.getOrder()));
+            .satisfies(e -> assertThat(e.getOrder()).as("check order").isEqualTo(actual.getOrder()))
+            .satisfies(e -> assertThat(e.getClient()).as("check client").isEqualTo(actual.getClient()));
     }
 }

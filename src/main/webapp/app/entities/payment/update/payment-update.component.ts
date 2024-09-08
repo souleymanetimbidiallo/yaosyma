@@ -9,9 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IOrder } from 'app/entities/order/order.model';
 import { OrderService } from 'app/entities/order/service/order.service';
-import { IUser } from 'app/entities/user/user.model';
-import { UserService } from 'app/entities/user/service/user.service';
-import { PaymentMethod } from 'app/entities/enumerations/payment-method.model';
+import { IClient } from 'app/entities/client/client.model';
+import { ClientService } from 'app/entities/client/service/client.service';
+import { PaymentMode } from 'app/entities/enumerations/payment-mode.model';
 import { PaymentStatus } from 'app/entities/enumerations/payment-status.model';
 import { PaymentService } from '../service/payment.service';
 import { IPayment } from '../payment.model';
@@ -26,16 +26,16 @@ import { PaymentFormService, PaymentFormGroup } from './payment-form.service';
 export class PaymentUpdateComponent implements OnInit {
   isSaving = false;
   payment: IPayment | null = null;
-  paymentMethodValues = Object.keys(PaymentMethod);
+  paymentModeValues = Object.keys(PaymentMode);
   paymentStatusValues = Object.keys(PaymentStatus);
 
   ordersSharedCollection: IOrder[] = [];
-  usersSharedCollection: IUser[] = [];
+  clientsSharedCollection: IClient[] = [];
 
   protected paymentService = inject(PaymentService);
   protected paymentFormService = inject(PaymentFormService);
   protected orderService = inject(OrderService);
-  protected userService = inject(UserService);
+  protected clientService = inject(ClientService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
@@ -43,7 +43,7 @@ export class PaymentUpdateComponent implements OnInit {
 
   compareOrder = (o1: IOrder | null, o2: IOrder | null): boolean => this.orderService.compareOrder(o1, o2);
 
-  compareUser = (o1: IUser | null, o2: IUser | null): boolean => this.userService.compareUser(o1, o2);
+  compareClient = (o1: IClient | null, o2: IClient | null): boolean => this.clientService.compareClient(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ payment }) => {
@@ -94,7 +94,7 @@ export class PaymentUpdateComponent implements OnInit {
     this.paymentFormService.resetForm(this.editForm, payment);
 
     this.ordersSharedCollection = this.orderService.addOrderToCollectionIfMissing<IOrder>(this.ordersSharedCollection, payment.order);
-    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing<IUser>(this.usersSharedCollection, payment.user);
+    this.clientsSharedCollection = this.clientService.addClientToCollectionIfMissing<IClient>(this.clientsSharedCollection, payment.client);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -104,10 +104,10 @@ export class PaymentUpdateComponent implements OnInit {
       .pipe(map((orders: IOrder[]) => this.orderService.addOrderToCollectionIfMissing<IOrder>(orders, this.payment?.order)))
       .subscribe((orders: IOrder[]) => (this.ordersSharedCollection = orders));
 
-    this.userService
+    this.clientService
       .query()
-      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
-      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing<IUser>(users, this.payment?.user)))
-      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
+      .pipe(map((res: HttpResponse<IClient[]>) => res.body ?? []))
+      .pipe(map((clients: IClient[]) => this.clientService.addClientToCollectionIfMissing<IClient>(clients, this.payment?.client)))
+      .subscribe((clients: IClient[]) => (this.clientsSharedCollection = clients));
   }
 }

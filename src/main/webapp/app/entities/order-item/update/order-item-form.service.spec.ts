@@ -23,8 +23,9 @@ describe('OrderItem Form Service', () => {
             quantity: expect.any(Object),
             unitPrice: expect.any(Object),
             totalPrice: expect.any(Object),
-            order: expect.any(Object),
             product: expect.any(Object),
+            relatedOrder: expect.any(Object),
+            order: expect.any(Object),
           }),
         );
       });
@@ -38,8 +39,9 @@ describe('OrderItem Form Service', () => {
             quantity: expect.any(Object),
             unitPrice: expect.any(Object),
             totalPrice: expect.any(Object),
-            order: expect.any(Object),
             product: expect.any(Object),
+            relatedOrder: expect.any(Object),
+            order: expect.any(Object),
           }),
         );
       });

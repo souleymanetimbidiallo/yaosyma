@@ -2,9 +2,10 @@
   "yaosymaApp": {
     "PaymentMethod": {
       "null": "",
-      "CASH_ON_DELIVERY": "Paiement à la livraison",
-      "MOBILE_MONEY": "Mobile Money",
-      "CREDIT_CARD": "Carte de crédit"
+      "CREDIT_CARD": "CARTE_CREDIT",
+      "PAYPAL": "PAYPAL",
+      "BANK_TRANSFER": "VIREMENT_BANCAIRE",
+      "CASH_ON_DELIVERY": "PAIEMENT_LIVRAISON"
     }
   }
 }

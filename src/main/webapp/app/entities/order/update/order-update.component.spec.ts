@@ -4,12 +4,10 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of, Subject, from } from 'rxjs';
 
-import { IStore } from 'app/entities/store/store.model';
-import { StoreService } from 'app/entities/store/service/store.service';
-import { IUser } from 'app/entities/user/user.model';
-import { UserService } from 'app/entities/user/service/user.service';
-import { IOrder } from '../order.model';
+import { IClient } from 'app/entities/client/client.model';
+import { ClientService } from 'app/entities/client/service/client.service';
 import { OrderService } from '../service/order.service';
+import { IOrder } from '../order.model';
 import { OrderFormService } from './order-form.service';
 
 import { OrderUpdateComponent } from './order-update.component';
@@ -20,8 +18,7 @@ describe('Order Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let orderFormService: OrderFormService;
   let orderService: OrderService;
-  let storeService: StoreService;
-  let userService: UserService;
+  let clientService: ClientService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -44,69 +41,43 @@ describe('Order Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     orderFormService = TestBed.inject(OrderFormService);
     orderService = TestBed.inject(OrderService);
-    storeService = TestBed.inject(StoreService);
-    userService = TestBed.inject(UserService);
+    clientService = TestBed.inject(ClientService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call Store query and add missing value', () => {
+    it('Should call Client query and add missing value', () => {
       const order: IOrder = { id: 456 };
-      const store: IStore = { id: 25570 };
-      order.store = store;
+      const client: IClient = { id: 28130 };
+      order.client = client;
 
-      const storeCollection: IStore[] = [{ id: 27302 }];
-      jest.spyOn(storeService, 'query').mockReturnValue(of(new HttpResponse({ body: storeCollection })));
-      const additionalStores = [store];
-      const expectedCollection: IStore[] = [...additionalStores, ...storeCollection];
-      jest.spyOn(storeService, 'addStoreToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const clientCollection: IClient[] = [{ id: 12604 }];
+      jest.spyOn(clientService, 'query').mockReturnValue(of(new HttpResponse({ body: clientCollection })));
+      const additionalClients = [client];
+      const expectedCollection: IClient[] = [...additionalClients, ...clientCollection];
+      jest.spyOn(clientService, 'addClientToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ order });
       comp.ngOnInit();
 
-      expect(storeService.query).toHaveBeenCalled();
-      expect(storeService.addStoreToCollectionIfMissing).toHaveBeenCalledWith(
-        storeCollection,
-        ...additionalStores.map(expect.objectContaining),
+      expect(clientService.query).toHaveBeenCalled();
+      expect(clientService.addClientToCollectionIfMissing).toHaveBeenCalledWith(
+        clientCollection,
+        ...additionalClients.map(expect.objectContaining),
       );
-      expect(comp.storesSharedCollection).toEqual(expectedCollection);
-    });
-
-    it('Should call User query and add missing value', () => {
-      const order: IOrder = { id: 456 };
-      const user: IUser = { id: 12254 };
-      order.user = user;
-
-      const userCollection: IUser[] = [{ id: 13064 }];
-      jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
-      const additionalUsers = [user];
-      const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
-      jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ order });
-      comp.ngOnInit();
-
-      expect(userService.query).toHaveBeenCalled();
-      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(
-        userCollection,
-        ...additionalUsers.map(expect.objectContaining),
-      );
-      expect(comp.usersSharedCollection).toEqual(expectedCollection);
+      expect(comp.clientsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const order: IOrder = { id: 456 };
-      const store: IStore = { id: 9222 };
-      order.store = store;
-      const user: IUser = { id: 256 };
-      order.user = user;
+      const client: IClient = { id: 4182 };
+      order.client = client;
 
       activatedRoute.data = of({ order });
       comp.ngOnInit();
 
-      expect(comp.storesSharedCollection).toContain(store);
-      expect(comp.usersSharedCollection).toContain(user);
+      expect(comp.clientsSharedCollection).toContain(client);
       expect(comp.order).toEqual(order);
     });
   });
@@ -180,23 +151,13 @@ describe('Order Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
-    describe('compareStore', () => {
-      it('Should forward to storeService', () => {
+    describe('compareClient', () => {
+      it('Should forward to clientService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(storeService, 'compareStore');
-        comp.compareStore(entity, entity2);
-        expect(storeService.compareStore).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
-    describe('compareUser', () => {
-      it('Should forward to userService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(userService, 'compareUser');
-        comp.compareUser(entity, entity2);
-        expect(userService.compareUser).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(clientService, 'compareClient');
+        comp.compareClient(entity, entity2);
+        expect(clientService.compareClient).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

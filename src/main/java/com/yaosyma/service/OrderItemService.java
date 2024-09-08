@@ -4,7 +4,10 @@ import com.yaosyma.domain.OrderItem;
 import com.yaosyma.repository.OrderItemRepository;
 import com.yaosyma.service.dto.OrderItemDTO;
 import com.yaosyma.service.mapper.OrderItemMapper;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -79,13 +82,12 @@ public class OrderItemService {
     /**
      * Get all the orderItems.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public Page<OrderItemDTO> findAll(Pageable pageable) {
+    public List<OrderItemDTO> findAll() {
         log.debug("Request to get all OrderItems");
-        return orderItemRepository.findAll(pageable).map(orderItemMapper::toDto);
+        return orderItemRepository.findAll().stream().map(orderItemMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**

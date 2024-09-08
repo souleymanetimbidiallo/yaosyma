@@ -6,7 +6,7 @@ echo "Building the application..."
 ./mvnw package -Pprod jib:dockerBuild
 
 echo "Stopping existing containers..."
-docker-compose -f src/main/docker/app.yml down
+docker-compose -f src/main/docker/app.yml stop
 
 echo "Starting new containers..."
 docker-compose -f src/main/docker/app.yml up -d

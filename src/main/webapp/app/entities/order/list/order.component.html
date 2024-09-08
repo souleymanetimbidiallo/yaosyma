@@ -42,6 +42,13 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th scope="col" jhiSortBy="orderNumber">
+              <div class="d-flex">
+                <span jhiTranslate="yaosymaApp.order.orderNumber">Order Number</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
             <th scope="col" jhiSortBy="orderDate">
               <div class="d-flex">
                 <span jhiTranslate="yaosymaApp.order.orderDate">Order Date</span>
@@ -77,15 +84,16 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="store.name">
+            <th scope="col" jhiSortBy="signature">
               <div class="d-flex">
-                <span jhiTranslate="yaosymaApp.order.store">Store</span>
+                <span jhiTranslate="yaosymaApp.order.signature">Signature</span>
+
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="user.login">
+            <th scope="col" jhiSortBy="client.email">
               <div class="d-flex">
-                <span jhiTranslate="yaosymaApp.order.user">User</span>
+                <span jhiTranslate="yaosymaApp.order.client">Client</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -98,6 +106,7 @@
               <td>
                 <a [routerLink]="['/order', order.id, 'view']">{{ order.id }}</a>
               </td>
+              <td>{{ order.orderNumber }}</td>
               <td>{{ order.orderDate | formatMediumDatetime }}</td>
               <td>{{ order.totalPrice }}</td>
               <td [jhiTranslate]="'yaosymaApp.OrderStatus.' + (order.status ?? 'null')">
@@ -114,21 +123,23 @@
               </td>
               <td [jhiTranslate]="'yaosymaApp.PaymentMethod.' + (order.paymentMethod ?? 'null')">
                 {{
-                  { null: '', CASH_ON_DELIVERY: 'CASH_ON_DELIVERY', MOBILE_MONEY: 'MOBILE_MONEY', CREDIT_CARD: 'CREDIT_CARD' }[
-                    order.paymentMethod ?? 'null'
-                  ]
+                  {
+                    null: '',
+                    CREDIT_CARD: 'CREDIT_CARD',
+                    PAYPAL: 'PAYPAL',
+                    BANK_TRANSFER: 'BANK_TRANSFER',
+                    CASH_ON_DELIVERY: 'CASH_ON_DELIVERY',
+                  }[order.paymentMethod ?? 'null']
                 }}
               </td>
               <td>{{ order.deliveryAddress }}</td>
+              <td>{{ order.signature }}</td>
               <td>
-                @if (order.store) {
+                @if (order.client) {
                   <div>
-                    <a [routerLink]="['/store', order.store.id, 'view']">{{ order.store.name }}</a>
+                    <a [routerLink]="['/client', order.client.id, 'view']">{{ order.client.email }}</a>
                   </div>
                 }
-              </td>
-              <td>
-                {{ order.user?.login }}
               </td>
               <td class="text-end">
                 <div class="btn-group">

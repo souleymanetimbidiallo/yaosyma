@@ -7,6 +7,11 @@
   "entityTableName": "jhi_order",
   "fields": [
     {
+      "fieldName": "orderNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "orderDate",
       "fieldType": "Instant",
       "fieldValidateRules": ["required"]
@@ -25,31 +30,34 @@
     {
       "fieldName": "paymentMethod",
       "fieldType": "PaymentMethod",
-      "fieldValues": "CASH_ON_DELIVERY,MOBILE_MONEY,CREDIT_CARD"
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CREDIT_CARD,PAYPAL,BANK_TRANSFER,CASH_ON_DELIVERY"
     },
     {
       "fieldName": "deliveryAddress",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "signature",
+      "fieldType": "String"
     }
   ],
   "name": "Order",
   "pagination": "pagination",
   "relationships": [
     {
-      "otherEntityField": "name",
-      "otherEntityName": "store",
-      "relationshipName": "store",
+      "otherEntityName": "orderItem",
+      "relationshipName": "orderItems",
       "relationshipSide": "left",
-      "relationshipType": "many-to-one"
+      "relationshipType": "one-to-many"
     },
     {
-      "otherEntityField": "login",
-      "otherEntityName": "user",
-      "relationshipName": "user",
+      "otherEntityField": "email",
+      "otherEntityName": "client",
+      "relationshipName": "client",
       "relationshipSide": "left",
-      "relationshipType": "many-to-one",
-      "relationshipWithBuiltInEntity": true
+      "relationshipType": "many-to-one"
     }
   ],
   "searchEngine": "no",

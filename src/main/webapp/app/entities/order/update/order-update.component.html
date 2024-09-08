@@ -16,6 +16,25 @@
         }
 
         <div class="mb-3">
+          <label class="form-label" for="field_orderNumber" jhiTranslate="yaosymaApp.order.orderNumber">Order Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="orderNumber"
+            id="field_orderNumber"
+            data-cy="orderNumber"
+            formControlName="orderNumber"
+          />
+          @if (editForm.get('orderNumber')!.invalid && (editForm.get('orderNumber')!.dirty || editForm.get('orderNumber')!.touched)) {
+            <div>
+              @if (editForm.get('orderNumber')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
           <label class="form-label" for="field_orderDate" jhiTranslate="yaosymaApp.order.orderDate">Order Date</label>
           <div class="d-flex">
             <input
@@ -99,6 +118,13 @@
               <option [value]="paymentMethod">{{ 'yaosymaApp.PaymentMethod.' + paymentMethod | translate }}</option>
             }
           </select>
+          @if (editForm.get('paymentMethod')!.invalid && (editForm.get('paymentMethod')!.dirty || editForm.get('paymentMethod')!.touched)) {
+            <div>
+              @if (editForm.get('paymentMethod')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
         </div>
 
         <div class="mb-3">
@@ -123,21 +149,23 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_store" jhiTranslate="yaosymaApp.order.store">Store</label>
-          <select class="form-control" id="field_store" data-cy="store" name="store" formControlName="store" [compareWith]="compareStore">
-            <option [ngValue]="null"></option>
-            @for (storeOption of storesSharedCollection; track $index) {
-              <option [ngValue]="storeOption">{{ storeOption.name }}</option>
-            }
-          </select>
+          <label class="form-label" for="field_signature" jhiTranslate="yaosymaApp.order.signature">Signature</label>
+          <input type="text" class="form-control" name="signature" id="field_signature" data-cy="signature" formControlName="signature" />
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_user" jhiTranslate="yaosymaApp.order.user">User</label>
-          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+          <label class="form-label" for="field_client" jhiTranslate="yaosymaApp.order.client">Client</label>
+          <select
+            class="form-control"
+            id="field_client"
+            data-cy="client"
+            name="client"
+            formControlName="client"
+            [compareWith]="compareClient"
+          >
             <option [ngValue]="null"></option>
-            @for (userOption of usersSharedCollection; track $index) {
-              <option [ngValue]="userOption">{{ userOption.login }}</option>
+            @for (clientOption of clientsSharedCollection; track $index) {
+              <option [ngValue]="clientOption">{{ clientOption.email }}</option>
             }
           </select>
         </div>

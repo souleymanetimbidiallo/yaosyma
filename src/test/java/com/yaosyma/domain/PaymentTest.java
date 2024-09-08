@@ -1,5 +1,6 @@
 package com.yaosyma.domain;
 
+import static com.yaosyma.domain.ClientTestSamples.*;
 import static com.yaosyma.domain.OrderTestSamples.*;
 import static com.yaosyma.domain.PaymentTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,5 +34,17 @@ class PaymentTest {
 
         payment.order(null);
         assertThat(payment.getOrder()).isNull();
+    }
+
+    @Test
+    void clientTest() {
+        Payment payment = getPaymentRandomSampleGenerator();
+        Client clientBack = getClientRandomSampleGenerator();
+
+        payment.setClient(clientBack);
+        assertThat(payment.getClient()).isEqualTo(clientBack);
+
+        payment.client(null);
+        assertThat(payment.getClient()).isNull();
     }
 }

@@ -1,0 +1,31 @@
+{
+  "yaosymaApp": {
+    "client": {
+      "home": {
+        "title": "Clients",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau client",
+        "createOrEditLabel": "Créer ou éditer un client",
+        "notFound": "Aucun client trouvé"
+      },
+      "created": "Un nouveau client a été créé avec l'identifiant {{ param }}",
+      "updated": "Le client avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le client avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le client {{ id }} ?"
+      },
+      "detail": {
+        "title": "Client"
+      },
+      "id": "ID",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "companyName": "Nom de la société",
+      "email": "Email",
+      "phone": "Téléphone",
+      "password": "Mot de passe",
+      "address": "Adresse",
+      "user": "Utilisateur"
+    }
+  }
+}

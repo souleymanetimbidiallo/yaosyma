@@ -14,14 +14,9 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
-import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
@@ -138,24 +133,15 @@ public class OrderItemResource {
     /**
      * {@code GET  /order-items} : get all the orderItems.
      *
-     * @param pageable the pagination information.
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orderItems in body.
      */
     @GetMapping("")
-    public ResponseEntity<List<OrderItemDTO>> getAllOrderItems(
-        @org.springdoc.core.annotations.ParameterObject Pageable pageable,
+    public List<OrderItemDTO> getAllOrderItems(
         @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
     ) {
-        log.debug("REST request to get a page of OrderItems");
-        Page<OrderItemDTO> page;
-        if (eagerload) {
-            page = orderItemService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = orderItemService.findAll(pageable);
-        }
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        log.debug("REST request to get all OrderItems");
+        return orderItemService.findAll();
     }
 
     /**

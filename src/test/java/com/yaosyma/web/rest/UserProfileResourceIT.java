@@ -332,8 +332,6 @@ class UserProfileResourceIT {
         UserProfile partialUpdatedUserProfile = new UserProfile();
         partialUpdatedUserProfile.setId(userProfile.getId());
 
-        partialUpdatedUserProfile.phoneNumber(UPDATED_PHONE_NUMBER).address(UPDATED_ADDRESS);
-
         restUserProfileMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedUserProfile.getId())

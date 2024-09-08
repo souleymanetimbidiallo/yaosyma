@@ -20,11 +20,11 @@
       "id": "ID",
       "paymentDate": "Date de paiement",
       "amount": "Montant",
-      "paymentMethod": "Méthode de paiement",
+      "paymentMode": "Mode de paiement",
       "transactionId": "Identifiant de transaction",
       "status": "Statut",
       "order": "Commande",
-      "user": "Utilisateur"
+      "client": "Client"
     }
   }
 }

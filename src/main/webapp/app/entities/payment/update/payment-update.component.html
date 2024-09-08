@@ -62,22 +62,16 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_paymentMethod" jhiTranslate="yaosymaApp.payment.paymentMethod">Payment Method</label>
-          <select
-            class="form-control"
-            name="paymentMethod"
-            formControlName="paymentMethod"
-            id="field_paymentMethod"
-            data-cy="paymentMethod"
-          >
-            <option [ngValue]="null">{{ 'yaosymaApp.PaymentMethod.null' | translate }}</option>
-            @for (paymentMethod of paymentMethodValues; track $index) {
-              <option [value]="paymentMethod">{{ 'yaosymaApp.PaymentMethod.' + paymentMethod | translate }}</option>
+          <label class="form-label" for="field_paymentMode" jhiTranslate="yaosymaApp.payment.paymentMode">Payment Mode</label>
+          <select class="form-control" name="paymentMode" formControlName="paymentMode" id="field_paymentMode" data-cy="paymentMode">
+            <option [ngValue]="null">{{ 'yaosymaApp.PaymentMode.null' | translate }}</option>
+            @for (paymentMode of paymentModeValues; track $index) {
+              <option [value]="paymentMode">{{ 'yaosymaApp.PaymentMode.' + paymentMode | translate }}</option>
             }
           </select>
-          @if (editForm.get('paymentMethod')!.invalid && (editForm.get('paymentMethod')!.dirty || editForm.get('paymentMethod')!.touched)) {
+          @if (editForm.get('paymentMode')!.invalid && (editForm.get('paymentMode')!.dirty || editForm.get('paymentMode')!.touched)) {
             <div>
-              @if (editForm.get('paymentMethod')?.errors?.required) {
+              @if (editForm.get('paymentMode')?.errors?.required) {
                 <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
               }
             </div>
@@ -94,9 +88,6 @@
             data-cy="transactionId"
             formControlName="transactionId"
           />
-          @if (editForm.get('transactionId')!.invalid && (editForm.get('transactionId')!.dirty || editForm.get('transactionId')!.touched)) {
-            <div></div>
-          }
         </div>
 
         <div class="mb-3">
@@ -121,17 +112,24 @@
           <select class="form-control" id="field_order" data-cy="order" name="order" formControlName="order" [compareWith]="compareOrder">
             <option [ngValue]="null"></option>
             @for (orderOption of ordersSharedCollection; track $index) {
-              <option [ngValue]="orderOption">{{ orderOption.id }}</option>
+              <option [ngValue]="orderOption">{{ orderOption.orderNumber }}</option>
             }
           </select>
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_user" jhiTranslate="yaosymaApp.payment.user">User</label>
-          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+          <label class="form-label" for="field_client" jhiTranslate="yaosymaApp.payment.client">Client</label>
+          <select
+            class="form-control"
+            id="field_client"
+            data-cy="client"
+            name="client"
+            formControlName="client"
+            [compareWith]="compareClient"
+          >
             <option [ngValue]="null"></option>
-            @for (userOption of usersSharedCollection; track $index) {
-              <option [ngValue]="userOption">{{ userOption.login }}</option>
+            @for (clientOption of clientsSharedCollection; track $index) {
+              <option [ngValue]="clientOption">{{ clientOption.email }}</option>
             }
           </select>
         </div>

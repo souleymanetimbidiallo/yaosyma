@@ -7,10 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IStore } from 'app/entities/store/store.model';
-import { StoreService } from 'app/entities/store/service/store.service';
-import { IUser } from 'app/entities/user/user.model';
-import { UserService } from 'app/entities/user/service/user.service';
+import { IClient } from 'app/entities/client/client.model';
+import { ClientService } from 'app/entities/client/service/client.service';
 import { OrderStatus } from 'app/entities/enumerations/order-status.model';
 import { PaymentMethod } from 'app/entities/enumerations/payment-method.model';
 import { OrderService } from '../service/order.service';
@@ -29,21 +27,17 @@ export class OrderUpdateComponent implements OnInit {
   orderStatusValues = Object.keys(OrderStatus);
   paymentMethodValues = Object.keys(PaymentMethod);
 
-  storesSharedCollection: IStore[] = [];
-  usersSharedCollection: IUser[] = [];
+  clientsSharedCollection: IClient[] = [];
 
   protected orderService = inject(OrderService);
   protected orderFormService = inject(OrderFormService);
-  protected storeService = inject(StoreService);
-  protected userService = inject(UserService);
+  protected clientService = inject(ClientService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: OrderFormGroup = this.orderFormService.createOrderFormGroup();
 
-  compareStore = (o1: IStore | null, o2: IStore | null): boolean => this.storeService.compareStore(o1, o2);
-
-  compareUser = (o1: IUser | null, o2: IUser | null): boolean => this.userService.compareUser(o1, o2);
+  compareClient = (o1: IClient | null, o2: IClient | null): boolean => this.clientService.compareClient(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ order }) => {
@@ -93,21 +87,14 @@ export class OrderUpdateComponent implements OnInit {
     this.order = order;
     this.orderFormService.resetForm(this.editForm, order);
 
-    this.storesSharedCollection = this.storeService.addStoreToCollectionIfMissing<IStore>(this.storesSharedCollection, order.store);
-    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing<IUser>(this.usersSharedCollection, order.user);
+    this.clientsSharedCollection = this.clientService.addClientToCollectionIfMissing<IClient>(this.clientsSharedCollection, order.client);
   }
 
   protected loadRelationshipsOptions(): void {
-    this.storeService
+    this.clientService
       .query()
-      .pipe(map((res: HttpResponse<IStore[]>) => res.body ?? []))
-      .pipe(map((stores: IStore[]) => this.storeService.addStoreToCollectionIfMissing<IStore>(stores, this.order?.store)))
-      .subscribe((stores: IStore[]) => (this.storesSharedCollection = stores));
-
-    this.userService
-      .query()
-      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
-      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing<IUser>(users, this.order?.user)))
-      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
+      .pipe(map((res: HttpResponse<IClient[]>) => res.body ?? []))
+      .pipe(map((clients: IClient[]) => this.clientService.addClientToCollectionIfMissing<IClient>(clients, this.order?.client)))
+      .subscribe((clients: IClient[]) => (this.clientsSharedCollection = clients));
   }
 }

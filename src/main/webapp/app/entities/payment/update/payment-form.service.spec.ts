@@ -22,11 +22,11 @@ describe('Payment Form Service', () => {
             id: expect.any(Object),
             paymentDate: expect.any(Object),
             amount: expect.any(Object),
-            paymentMethod: expect.any(Object),
+            paymentMode: expect.any(Object),
             transactionId: expect.any(Object),
             status: expect.any(Object),
             order: expect.any(Object),
-            user: expect.any(Object),
+            client: expect.any(Object),
           }),
         );
       });
@@ -39,11 +39,11 @@ describe('Payment Form Service', () => {
             id: expect.any(Object),
             paymentDate: expect.any(Object),
             amount: expect.any(Object),
-            paymentMethod: expect.any(Object),
+            paymentMode: expect.any(Object),
             transactionId: expect.any(Object),
             status: expect.any(Object),
             order: expect.any(Object),
-            user: expect.any(Object),
+            client: expect.any(Object),
           }),
         );
       });

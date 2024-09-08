@@ -14,9 +14,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    @Query("select jhiOrder from Order jhiOrder where jhiOrder.user.login = ?#{authentication.name}")
-    List<Order> findByUserIsCurrentUser();
-
     default Optional<Order> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);
     }
@@ -30,14 +27,14 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     }
 
     @Query(
-        value = "select jhiOrder from Order jhiOrder left join fetch jhiOrder.store left join fetch jhiOrder.user",
+        value = "select jhiOrder from Order jhiOrder left join fetch jhiOrder.client",
         countQuery = "select count(jhiOrder) from Order jhiOrder"
     )
     Page<Order> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select jhiOrder from Order jhiOrder left join fetch jhiOrder.store left join fetch jhiOrder.user")
+    @Query("select jhiOrder from Order jhiOrder left join fetch jhiOrder.client")
     List<Order> findAllWithToOneRelationships();
 
-    @Query("select jhiOrder from Order jhiOrder left join fetch jhiOrder.store left join fetch jhiOrder.user where jhiOrder.id =:id")
+    @Query("select jhiOrder from Order jhiOrder left join fetch jhiOrder.client where jhiOrder.id =:id")
     Optional<Order> findOneWithToOneRelationships(@Param("id") Long id);
 }

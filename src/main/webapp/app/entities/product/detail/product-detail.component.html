@@ -23,17 +23,33 @@
           <dd>
             <span>{{ product()!.description }}</span>
           </dd>
+          <dt><span jhiTranslate="yaosymaApp.product.image">Image</span></dt>
+          <dd>
+            <span>{{ product()!.image }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.product.quantity">Quantity</span></dt>
+          <dd>
+            <span>{{ product()!.quantity }}</span>
+          </dd>
           <dt><span jhiTranslate="yaosymaApp.product.price">Price</span></dt>
           <dd>
             <span>{{ product()!.price }}</span>
           </dd>
-          <dt><span jhiTranslate="yaosymaApp.product.stockQuantity">Stock Quantity</span></dt>
-          <dd>
-            <span>{{ product()!.stockQuantity }}</span>
-          </dd>
           <dt><span jhiTranslate="yaosymaApp.product.category">Category</span></dt>
           <dd>
-            <span>{{ product()!.category }}</span>
+            @if (product()!.category) {
+              <div>
+                <a [routerLink]="['/category', product()!.category?.id, 'view']">{{ product()!.category?.name }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.product.supplier">Supplier</span></dt>
+          <dd>
+            @if (product()!.supplier) {
+              <div>
+                <a [routerLink]="['/supplier', product()!.supplier?.id, 'view']">{{ product()!.supplier?.name }}</a>
+              </div>
+            }
           </dd>
         </dl>
 

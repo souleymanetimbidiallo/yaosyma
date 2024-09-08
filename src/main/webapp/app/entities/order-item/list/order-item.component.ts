@@ -1,5 +1,4 @@
 import { Component, NgZone, inject, OnInit } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router, RouterModule } from '@angular/router';
 import { combineLatest, filter, Observable, Subscription, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -7,10 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import SharedModule from 'app/shared/shared.module';
 import { sortStateSignal, SortDirective, SortByDirective, type SortState, SortService } from 'app/shared/sort';
 import { DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe } from 'app/shared/date';
-import { ItemCountComponent } from 'app/shared/pagination';
 import { FormsModule } from '@angular/forms';
-
-import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/config/pagination.constants';
 import { SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
 import { IOrderItem } from '../order-item.model';
 import { EntityArrayResponseType, OrderItemService } from '../service/order-item.service';
@@ -29,7 +25,6 @@ import { OrderItemDeleteDialogComponent } from '../delete/order-item-delete-dial
     DurationPipe,
     FormatMediumDatetimePipe,
     FormatMediumDatePipe,
-    ItemCountComponent,
   ],
 })
 export class OrderItemComponent implements OnInit {
@@ -38,10 +33,6 @@ export class OrderItemComponent implements OnInit {
   isLoading = false;
 
   sortState = sortStateSignal({});
-
-  itemsPerPage = ITEMS_PER_PAGE;
-  totalItems = 0;
-  page = 1;
 
   public router = inject(Router);
   protected orderItemService = inject(OrderItemService);
@@ -56,7 +47,11 @@ export class OrderItemComponent implements OnInit {
     this.subscription = combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data])
       .pipe(
         tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
-        tap(() => this.load()),
+        tap(() => {
+          if (!this.orderItems || this.orderItems.length === 0) {
+            this.load();
+          }
+        }),
       )
       .subscribe();
   }
@@ -82,51 +77,38 @@ export class OrderItemComponent implements OnInit {
   }
 
   navigateToWithComponentValues(event: SortState): void {
-    this.handleNavigation(this.page, event);
-  }
-
-  navigateToPage(page: number): void {
-    this.handleNavigation(page, this.sortState());
+    this.handleNavigation(event);
   }
 
   protected fillComponentAttributeFromRoute(params: ParamMap, data: Data): void {
-    const page = params.get(PAGE_HEADER);
-    this.page = +(page ?? 1);
     this.sortState.set(this.sortService.parseSortParam(params.get(SORT) ?? data[DEFAULT_SORT_DATA]));
   }
 
   protected onResponseSuccess(response: EntityArrayResponseType): void {
-    this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
-    this.orderItems = dataFromBody;
+    this.orderItems = this.refineData(dataFromBody);
+  }
+
+  protected refineData(data: IOrderItem[]): IOrderItem[] {
+    const { predicate, order } = this.sortState();
+    return predicate && order ? data.sort(this.sortService.startSort({ predicate, order })) : data;
   }
 
   protected fillComponentAttributesFromResponseBody(data: IOrderItem[] | null): IOrderItem[] {
     return data ?? [];
   }
 
-  protected fillComponentAttributesFromResponseHeader(headers: HttpHeaders): void {
-    this.totalItems = Number(headers.get(TOTAL_COUNT_RESPONSE_HEADER));
-  }
-
   protected queryBackend(): Observable<EntityArrayResponseType> {
-    const { page } = this;
-
     this.isLoading = true;
-    const pageToLoad: number = page;
     const queryObject: any = {
-      page: pageToLoad - 1,
-      size: this.itemsPerPage,
       eagerload: true,
       sort: this.sortService.buildSortParam(this.sortState()),
     };
     return this.orderItemService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 
-  protected handleNavigation(page: number, sortState: SortState): void {
+  protected handleNavigation(sortState: SortState): void {
     const queryParamsObj = {
-      page,
-      size: this.itemsPerPage,
       sort: this.sortService.buildSortParam(sortState),
     };
 

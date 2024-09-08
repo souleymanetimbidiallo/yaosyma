@@ -1,7 +1,7 @@
 package com.yaosyma.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.yaosyma.domain.enumeration.PaymentMethod;
+import com.yaosyma.domain.enumeration.PaymentMode;
 import com.yaosyma.domain.enumeration.PaymentStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -35,10 +35,10 @@ public class Payment implements Serializable {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "payment_method", nullable = false)
-    private PaymentMethod paymentMethod;
+    @Column(name = "payment_mode", nullable = false)
+    private PaymentMode paymentMode;
 
-    @Column(name = "transaction_id", unique = true)
+    @Column(name = "transaction_id")
     private String transactionId;
 
     @NotNull
@@ -47,11 +47,12 @@ public class Payment implements Serializable {
     private PaymentStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "store", "user" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "orderItems", "client" }, allowSetters = true)
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
+    private Client client;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -94,17 +95,17 @@ public class Payment implements Serializable {
         this.amount = amount;
     }
 
-    public PaymentMethod getPaymentMethod() {
-        return this.paymentMethod;
+    public PaymentMode getPaymentMode() {
+        return this.paymentMode;
     }
 
-    public Payment paymentMethod(PaymentMethod paymentMethod) {
-        this.setPaymentMethod(paymentMethod);
+    public Payment paymentMode(PaymentMode paymentMode) {
+        this.setPaymentMode(paymentMode);
         return this;
     }
 
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setPaymentMode(PaymentMode paymentMode) {
+        this.paymentMode = paymentMode;
     }
 
     public String getTransactionId() {
@@ -146,16 +147,16 @@ public class Payment implements Serializable {
         return this;
     }
 
-    public User getUser() {
-        return this.user;
+    public Client getClient() {
+        return this.client;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public Payment user(User user) {
-        this.setUser(user);
+    public Payment client(Client client) {
+        this.setClient(client);
         return this;
     }
 
@@ -185,7 +186,7 @@ public class Payment implements Serializable {
             "id=" + getId() +
             ", paymentDate='" + getPaymentDate() + "'" +
             ", amount=" + getAmount() +
-            ", paymentMethod='" + getPaymentMethod() + "'" +
+            ", paymentMode='" + getPaymentMode() + "'" +
             ", transactionId='" + getTransactionId() + "'" +
             ", status='" + getStatus() + "'" +
             "}";

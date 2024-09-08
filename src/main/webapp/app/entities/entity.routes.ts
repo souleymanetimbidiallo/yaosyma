@@ -7,11 +7,6 @@ const routes: Routes = [
     loadChildren: () => import('./admin/authority/authority.routes'),
   },
   {
-    path: 'store',
-    data: { pageTitle: 'yaosymaApp.store.home.title' },
-    loadChildren: () => import('./store/store.routes'),
-  },
-  {
     path: 'product',
     data: { pageTitle: 'yaosymaApp.product.home.title' },
     loadChildren: () => import('./product/product.routes'),
@@ -27,11 +22,6 @@ const routes: Routes = [
     loadChildren: () => import('./order-item/order-item.routes'),
   },
   {
-    path: 'transport',
-    data: { pageTitle: 'yaosymaApp.transport.home.title' },
-    loadChildren: () => import('./transport/transport.routes'),
-  },
-  {
     path: 'payment',
     data: { pageTitle: 'yaosymaApp.payment.home.title' },
     loadChildren: () => import('./payment/payment.routes'),
@@ -40,6 +30,31 @@ const routes: Routes = [
     path: 'user-profile',
     data: { pageTitle: 'yaosymaApp.userProfile.home.title' },
     loadChildren: () => import('./user-profile/user-profile.routes'),
+  },
+  {
+    path: 'category',
+    data: { pageTitle: 'yaosymaApp.category.home.title' },
+    loadChildren: () => import('./category/category.routes'),
+  },
+  {
+    path: 'supplier',
+    data: { pageTitle: 'yaosymaApp.supplier.home.title' },
+    loadChildren: () => import('./supplier/supplier.routes'),
+  },
+  {
+    path: 'client',
+    data: { pageTitle: 'yaosymaApp.client.home.title' },
+    loadChildren: () => import('./client/client.routes'),
+  },
+  {
+    path: 'driver',
+    data: { pageTitle: 'yaosymaApp.driver.home.title' },
+    loadChildren: () => import('./driver/driver.routes'),
+  },
+  {
+    path: 'vehicle',
+    data: { pageTitle: 'yaosymaApp.vehicle.home.title' },
+    loadChildren: () => import('./vehicle/vehicle.routes'),
   },
   /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
 ];

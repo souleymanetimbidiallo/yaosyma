@@ -17,6 +17,9 @@ public class OrderDTO implements Serializable {
     private Long id;
 
     @NotNull
+    private String orderNumber;
+
+    @NotNull
     private Instant orderDate;
 
     @NotNull
@@ -25,14 +28,15 @@ public class OrderDTO implements Serializable {
     @NotNull
     private OrderStatus status;
 
+    @NotNull
     private PaymentMethod paymentMethod;
 
     @NotNull
     private String deliveryAddress;
 
-    private StoreDTO store;
+    private String signature;
 
-    private UserDTO user;
+    private ClientDTO client;
 
     public Long getId() {
         return id;
@@ -40,6 +44,14 @@ public class OrderDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public Instant getOrderDate() {
@@ -82,20 +94,20 @@ public class OrderDTO implements Serializable {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public StoreDTO getStore() {
-        return store;
+    public String getSignature() {
+        return signature;
     }
 
-    public void setStore(StoreDTO store) {
-        this.store = store;
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
-    public UserDTO getUser() {
-        return user;
+    public ClientDTO getClient() {
+        return client;
     }
 
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public void setClient(ClientDTO client) {
+        this.client = client;
     }
 
     @Override
@@ -124,13 +136,14 @@ public class OrderDTO implements Serializable {
     public String toString() {
         return "OrderDTO{" +
             "id=" + getId() +
+            ", orderNumber='" + getOrderNumber() + "'" +
             ", orderDate='" + getOrderDate() + "'" +
             ", totalPrice=" + getTotalPrice() +
             ", status='" + getStatus() + "'" +
             ", paymentMethod='" + getPaymentMethod() + "'" +
             ", deliveryAddress='" + getDeliveryAddress() + "'" +
-            ", store=" + getStore() +
-            ", user=" + getUser() +
+            ", signature='" + getSignature() + "'" +
+            ", client=" + getClient() +
             "}";
     }
 }

@@ -22,9 +22,11 @@ public class OrderItemDTO implements Serializable {
     @NotNull
     private BigDecimal totalPrice;
 
-    private OrderDTO order;
-
     private ProductDTO product;
+
+    private OrderDTO relatedOrder;
+
+    private OrderDTO order;
 
     public Long getId() {
         return id;
@@ -58,20 +60,28 @@ public class OrderItemDTO implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    public OrderDTO getOrder() {
-        return order;
-    }
-
-    public void setOrder(OrderDTO order) {
-        this.order = order;
-    }
-
     public ProductDTO getProduct() {
         return product;
     }
 
     public void setProduct(ProductDTO product) {
         this.product = product;
+    }
+
+    public OrderDTO getRelatedOrder() {
+        return relatedOrder;
+    }
+
+    public void setRelatedOrder(OrderDTO relatedOrder) {
+        this.relatedOrder = relatedOrder;
+    }
+
+    public OrderDTO getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderDTO order) {
+        this.order = order;
     }
 
     @Override
@@ -103,8 +113,9 @@ public class OrderItemDTO implements Serializable {
             ", quantity=" + getQuantity() +
             ", unitPrice=" + getUnitPrice() +
             ", totalPrice=" + getTotalPrice() +
-            ", order=" + getOrder() +
             ", product=" + getProduct() +
+            ", relatedOrder=" + getRelatedOrder() +
+            ", order=" + getOrder() +
             "}";
     }
 }

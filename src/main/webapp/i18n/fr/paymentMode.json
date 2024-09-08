@@ -1,0 +1,9 @@
+{
+  "yaosymaApp": {
+    "PaymentMode": {
+      "null": "",
+      "ONLINE": "EN_LIGNE",
+      "CASH_ON_DELIVERY": "PAIEMENT_LIVRAISON"
+    }
+  }
+}

@@ -71,7 +71,8 @@ public class OrderItemAsserts {
     public static void assertOrderItemUpdatableRelationshipsEquals(OrderItem expected, OrderItem actual) {
         assertThat(expected)
             .as("Verify OrderItem relationships")
-            .satisfies(e -> assertThat(e.getOrder()).as("check order").isEqualTo(actual.getOrder()))
-            .satisfies(e -> assertThat(e.getProduct()).as("check product").isEqualTo(actual.getProduct()));
+            .satisfies(e -> assertThat(e.getProduct()).as("check product").isEqualTo(actual.getProduct()))
+            .satisfies(e -> assertThat(e.getRelatedOrder()).as("check relatedOrder").isEqualTo(actual.getRelatedOrder()))
+            .satisfies(e -> assertThat(e.getOrder()).as("check order").isEqualTo(actual.getOrder()));
     }
 }

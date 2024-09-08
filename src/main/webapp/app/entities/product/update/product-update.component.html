@@ -40,6 +40,29 @@
         </div>
 
         <div class="mb-3">
+          <label class="form-label" for="field_image" jhiTranslate="yaosymaApp.product.image">Image</label>
+          <input type="text" class="form-control" name="image" id="field_image" data-cy="image" formControlName="image" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_quantity" jhiTranslate="yaosymaApp.product.quantity">Quantity</label>
+          <input type="number" class="form-control" name="quantity" id="field_quantity" data-cy="quantity" formControlName="quantity" />
+          @if (editForm.get('quantity')!.invalid && (editForm.get('quantity')!.dirty || editForm.get('quantity')!.touched)) {
+            <div>
+              @if (editForm.get('quantity')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('quantity')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Ce champ doit être un nombre.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
           <label class="form-label" for="field_price" jhiTranslate="yaosymaApp.product.price">Price</label>
           <input type="number" class="form-control" name="price" id="field_price" data-cy="price" formControlName="price" />
           @if (editForm.get('price')!.invalid && (editForm.get('price')!.dirty || editForm.get('price')!.touched)) {
@@ -55,33 +78,37 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_stockQuantity" jhiTranslate="yaosymaApp.product.stockQuantity">Stock Quantity</label>
-          <input
-            type="number"
+          <label class="form-label" for="field_category" jhiTranslate="yaosymaApp.product.category">Category</label>
+          <select
             class="form-control"
-            name="stockQuantity"
-            id="field_stockQuantity"
-            data-cy="stockQuantity"
-            formControlName="stockQuantity"
-          />
-          @if (editForm.get('stockQuantity')!.invalid && (editForm.get('stockQuantity')!.dirty || editForm.get('stockQuantity')!.touched)) {
-            <div>
-              @if (editForm.get('stockQuantity')?.errors?.required) {
-                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
-              }
-              <small
-                class="form-text text-danger"
-                [hidden]="!editForm.get('stockQuantity')?.errors?.number"
-                jhiTranslate="entity.validation.number"
-                >Ce champ doit être un nombre.</small
-              >
-            </div>
-          }
+            id="field_category"
+            data-cy="category"
+            name="category"
+            formControlName="category"
+            [compareWith]="compareCategory"
+          >
+            <option [ngValue]="null"></option>
+            @for (categoryOption of categoriesSharedCollection; track $index) {
+              <option [ngValue]="categoryOption">{{ categoryOption.name }}</option>
+            }
+          </select>
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_category" jhiTranslate="yaosymaApp.product.category">Category</label>
-          <input type="text" class="form-control" name="category" id="field_category" data-cy="category" formControlName="category" />
+          <label class="form-label" for="field_supplier" jhiTranslate="yaosymaApp.product.supplier">Supplier</label>
+          <select
+            class="form-control"
+            id="field_supplier"
+            data-cy="supplier"
+            name="supplier"
+            formControlName="supplier"
+            [compareWith]="compareSupplier"
+          >
+            <option [ngValue]="null"></option>
+            @for (supplierOption of suppliersSharedCollection; track $index) {
+              <option [ngValue]="supplierOption">{{ supplierOption.name }}</option>
+            }
+          </select>
         </div>
       </div>
 

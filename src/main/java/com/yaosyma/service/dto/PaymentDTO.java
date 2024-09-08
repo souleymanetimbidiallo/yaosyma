@@ -1,6 +1,6 @@
 package com.yaosyma.service.dto;
 
-import com.yaosyma.domain.enumeration.PaymentMethod;
+import com.yaosyma.domain.enumeration.PaymentMode;
 import com.yaosyma.domain.enumeration.PaymentStatus;
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
@@ -23,7 +23,7 @@ public class PaymentDTO implements Serializable {
     private BigDecimal amount;
 
     @NotNull
-    private PaymentMethod paymentMethod;
+    private PaymentMode paymentMode;
 
     private String transactionId;
 
@@ -32,7 +32,7 @@ public class PaymentDTO implements Serializable {
 
     private OrderDTO order;
 
-    private UserDTO user;
+    private ClientDTO client;
 
     public Long getId() {
         return id;
@@ -58,12 +58,12 @@ public class PaymentDTO implements Serializable {
         this.amount = amount;
     }
 
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
+    public PaymentMode getPaymentMode() {
+        return paymentMode;
     }
 
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setPaymentMode(PaymentMode paymentMode) {
+        this.paymentMode = paymentMode;
     }
 
     public String getTransactionId() {
@@ -90,12 +90,12 @@ public class PaymentDTO implements Serializable {
         this.order = order;
     }
 
-    public UserDTO getUser() {
-        return user;
+    public ClientDTO getClient() {
+        return client;
     }
 
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public void setClient(ClientDTO client) {
+        this.client = client;
     }
 
     @Override
@@ -126,11 +126,11 @@ public class PaymentDTO implements Serializable {
             "id=" + getId() +
             ", paymentDate='" + getPaymentDate() + "'" +
             ", amount=" + getAmount() +
-            ", paymentMethod='" + getPaymentMethod() + "'" +
+            ", paymentMode='" + getPaymentMode() + "'" +
             ", transactionId='" + getTransactionId() + "'" +
             ", status='" + getStatus() + "'" +
             ", order=" + getOrder() +
-            ", user=" + getUser() +
+            ", client=" + getClient() +
             "}";
     }
 }

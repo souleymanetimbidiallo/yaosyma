@@ -33,11 +33,11 @@ type PaymentFormGroupContent = {
   id: FormControl<PaymentFormRawValue['id'] | NewPayment['id']>;
   paymentDate: FormControl<PaymentFormRawValue['paymentDate']>;
   amount: FormControl<PaymentFormRawValue['amount']>;
-  paymentMethod: FormControl<PaymentFormRawValue['paymentMethod']>;
+  paymentMode: FormControl<PaymentFormRawValue['paymentMode']>;
   transactionId: FormControl<PaymentFormRawValue['transactionId']>;
   status: FormControl<PaymentFormRawValue['status']>;
   order: FormControl<PaymentFormRawValue['order']>;
-  user: FormControl<PaymentFormRawValue['user']>;
+  client: FormControl<PaymentFormRawValue['client']>;
 };
 
 export type PaymentFormGroup = FormGroup<PaymentFormGroupContent>;
@@ -63,7 +63,7 @@ export class PaymentFormService {
       amount: new FormControl(paymentRawValue.amount, {
         validators: [Validators.required],
       }),
-      paymentMethod: new FormControl(paymentRawValue.paymentMethod, {
+      paymentMode: new FormControl(paymentRawValue.paymentMode, {
         validators: [Validators.required],
       }),
       transactionId: new FormControl(paymentRawValue.transactionId),
@@ -71,7 +71,7 @@ export class PaymentFormService {
         validators: [Validators.required],
       }),
       order: new FormControl(paymentRawValue.order),
-      user: new FormControl(paymentRawValue.user),
+      client: new FormControl(paymentRawValue.client),
     });
   }
 

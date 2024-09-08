@@ -12,10 +12,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yaosyma.IntegrationTest;
 import com.yaosyma.domain.Payment;
-import com.yaosyma.domain.enumeration.PaymentMethod;
+import com.yaosyma.domain.enumeration.PaymentMode;
 import com.yaosyma.domain.enumeration.PaymentStatus;
 import com.yaosyma.repository.PaymentRepository;
-import com.yaosyma.repository.UserRepository;
 import com.yaosyma.service.PaymentService;
 import com.yaosyma.service.dto.PaymentDTO;
 import com.yaosyma.service.mapper.PaymentMapper;
@@ -56,8 +55,8 @@ class PaymentResourceIT {
     private static final BigDecimal DEFAULT_AMOUNT = new BigDecimal(1);
     private static final BigDecimal UPDATED_AMOUNT = new BigDecimal(2);
 
-    private static final PaymentMethod DEFAULT_PAYMENT_METHOD = PaymentMethod.CASH_ON_DELIVERY;
-    private static final PaymentMethod UPDATED_PAYMENT_METHOD = PaymentMethod.MOBILE_MONEY;
+    private static final PaymentMode DEFAULT_PAYMENT_MODE = PaymentMode.ONLINE;
+    private static final PaymentMode UPDATED_PAYMENT_MODE = PaymentMode.CASH_ON_DELIVERY;
 
     private static final String DEFAULT_TRANSACTION_ID = "AAAAAAAAAA";
     private static final String UPDATED_TRANSACTION_ID = "BBBBBBBBBB";
@@ -76,9 +75,6 @@ class PaymentResourceIT {
 
     @Autowired
     private PaymentRepository paymentRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Mock
     private PaymentRepository paymentRepositoryMock;
@@ -109,7 +105,7 @@ class PaymentResourceIT {
         Payment payment = new Payment()
             .paymentDate(DEFAULT_PAYMENT_DATE)
             .amount(DEFAULT_AMOUNT)
-            .paymentMethod(DEFAULT_PAYMENT_METHOD)
+            .paymentMode(DEFAULT_PAYMENT_MODE)
             .transactionId(DEFAULT_TRANSACTION_ID)
             .status(DEFAULT_STATUS);
         return payment;
@@ -125,7 +121,7 @@ class PaymentResourceIT {
         Payment payment = new Payment()
             .paymentDate(UPDATED_PAYMENT_DATE)
             .amount(UPDATED_AMOUNT)
-            .paymentMethod(UPDATED_PAYMENT_METHOD)
+            .paymentMode(UPDATED_PAYMENT_MODE)
             .transactionId(UPDATED_TRANSACTION_ID)
             .status(UPDATED_STATUS);
         return payment;
@@ -222,10 +218,10 @@ class PaymentResourceIT {
 
     @Test
     @Transactional
-    void checkPaymentMethodIsRequired() throws Exception {
+    void checkPaymentModeIsRequired() throws Exception {
         long databaseSizeBeforeTest = getRepositoryCount();
         // set the field null
-        payment.setPaymentMethod(null);
+        payment.setPaymentMode(null);
 
         // Create the Payment, which fails.
         PaymentDTO paymentDTO = paymentMapper.toDto(payment);
@@ -268,7 +264,7 @@ class PaymentResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(payment.getId().intValue())))
             .andExpect(jsonPath("$.[*].paymentDate").value(hasItem(DEFAULT_PAYMENT_DATE.toString())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(sameNumber(DEFAULT_AMOUNT))))
-            .andExpect(jsonPath("$.[*].paymentMethod").value(hasItem(DEFAULT_PAYMENT_METHOD.toString())))
+            .andExpect(jsonPath("$.[*].paymentMode").value(hasItem(DEFAULT_PAYMENT_MODE.toString())))
             .andExpect(jsonPath("$.[*].transactionId").value(hasItem(DEFAULT_TRANSACTION_ID)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
@@ -304,7 +300,7 @@ class PaymentResourceIT {
             .andExpect(jsonPath("$.id").value(payment.getId().intValue()))
             .andExpect(jsonPath("$.paymentDate").value(DEFAULT_PAYMENT_DATE.toString()))
             .andExpect(jsonPath("$.amount").value(sameNumber(DEFAULT_AMOUNT)))
-            .andExpect(jsonPath("$.paymentMethod").value(DEFAULT_PAYMENT_METHOD.toString()))
+            .andExpect(jsonPath("$.paymentMode").value(DEFAULT_PAYMENT_MODE.toString()))
             .andExpect(jsonPath("$.transactionId").value(DEFAULT_TRANSACTION_ID))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
@@ -331,7 +327,7 @@ class PaymentResourceIT {
         updatedPayment
             .paymentDate(UPDATED_PAYMENT_DATE)
             .amount(UPDATED_AMOUNT)
-            .paymentMethod(UPDATED_PAYMENT_METHOD)
+            .paymentMode(UPDATED_PAYMENT_MODE)
             .transactionId(UPDATED_TRANSACTION_ID)
             .status(UPDATED_STATUS);
         PaymentDTO paymentDTO = paymentMapper.toDto(updatedPayment);
@@ -419,7 +415,7 @@ class PaymentResourceIT {
         Payment partialUpdatedPayment = new Payment();
         partialUpdatedPayment.setId(payment.getId());
 
-        partialUpdatedPayment.amount(UPDATED_AMOUNT).paymentMethod(UPDATED_PAYMENT_METHOD);
+        partialUpdatedPayment.transactionId(UPDATED_TRANSACTION_ID);
 
         restPaymentMockMvc
             .perform(
@@ -450,7 +446,7 @@ class PaymentResourceIT {
         partialUpdatedPayment
             .paymentDate(UPDATED_PAYMENT_DATE)
             .amount(UPDATED_AMOUNT)
-            .paymentMethod(UPDATED_PAYMENT_METHOD)
+            .paymentMode(UPDATED_PAYMENT_MODE)
             .transactionId(UPDATED_TRANSACTION_ID)
             .status(UPDATED_STATUS);
 

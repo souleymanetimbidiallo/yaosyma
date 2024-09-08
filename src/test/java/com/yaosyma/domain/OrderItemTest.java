@@ -25,18 +25,6 @@ class OrderItemTest {
     }
 
     @Test
-    void orderTest() {
-        OrderItem orderItem = getOrderItemRandomSampleGenerator();
-        Order orderBack = getOrderRandomSampleGenerator();
-
-        orderItem.setOrder(orderBack);
-        assertThat(orderItem.getOrder()).isEqualTo(orderBack);
-
-        orderItem.order(null);
-        assertThat(orderItem.getOrder()).isNull();
-    }
-
-    @Test
     void productTest() {
         OrderItem orderItem = getOrderItemRandomSampleGenerator();
         Product productBack = getProductRandomSampleGenerator();
@@ -46,5 +34,29 @@ class OrderItemTest {
 
         orderItem.product(null);
         assertThat(orderItem.getProduct()).isNull();
+    }
+
+    @Test
+    void relatedOrderTest() {
+        OrderItem orderItem = getOrderItemRandomSampleGenerator();
+        Order orderBack = getOrderRandomSampleGenerator();
+
+        orderItem.setRelatedOrder(orderBack);
+        assertThat(orderItem.getRelatedOrder()).isEqualTo(orderBack);
+
+        orderItem.relatedOrder(null);
+        assertThat(orderItem.getRelatedOrder()).isNull();
+    }
+
+    @Test
+    void orderTest() {
+        OrderItem orderItem = getOrderItemRandomSampleGenerator();
+        Order orderBack = getOrderRandomSampleGenerator();
+
+        orderItem.setOrder(orderBack);
+        assertThat(orderItem.getOrder()).isEqualTo(orderBack);
+
+        orderItem.order(null);
+        assertThat(orderItem.getOrder()).isNull();
     }
 }

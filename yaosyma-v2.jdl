@@ -1,0 +1,131 @@
+// Entités principales
+entity Product {
+    name String required,
+    description String,
+    image String,
+    quantity Integer required,
+    price BigDecimal required
+}
+
+entity Category {
+    name String required
+}
+
+entity Supplier {
+    name String required,
+    description String,
+    address String,
+    phone String required,
+    email String required,
+    image String
+}
+
+entity Client {
+    firstName String required,
+    lastName String required,
+    companyName String,
+    email String required,
+    phone String required,
+    password String required,
+    address String required
+}
+
+entity Order {
+    orderNumber String required,
+    orderDate Instant required,
+    totalPrice BigDecimal required,
+    status OrderStatus required,
+    paymentMethod PaymentMethod required,
+    deliveryAddress String required,
+    signature String
+}
+
+entity Payment {
+    paymentDate Instant required,
+    amount BigDecimal required,
+    paymentMode PaymentMode required,
+    transactionId String,
+    status PaymentStatus required
+}
+
+entity Driver {
+    firstName String required,
+    lastName String required,
+    address String,
+    phone String required,
+    email String required,
+    password String required
+}
+
+entity Vehicle {
+    vehicleName String required,
+    licensePlate String required,
+    serialNumber String required,
+    insurance String required,
+    vehicleType String required,
+    gpsTracker String
+}
+
+entity OrderItem {
+    quantity Integer required,
+    unitPrice BigDecimal required,
+    totalPrice BigDecimal required
+}
+
+entity UserProfile {
+    phoneNumber String,
+    address String,
+    birthDate LocalDate
+}
+
+// Enums
+enum OrderStatus {
+    PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED
+}
+
+enum PaymentMode {
+    ONLINE, CASH_ON_DELIVERY
+}
+
+enum PaymentStatus {
+    PENDING, COMPLETED, FAILED, REFUNDED
+}
+
+enum PaymentMethod {
+    CREDIT_CARD, PAYPAL, BANK_TRANSFER, CASH_ON_DELIVERY
+}
+
+enum VehicleType {
+    CAR, TRUCK, MOTORBIKE
+}
+
+// Relations
+relationship ManyToOne {
+    Product{category(name)} to Category,
+    Product{supplier(name)} to Supplier,
+    Order{client(email)} to Client,
+    Payment{order(orderNumber)} to Order,
+    Payment{client(email)} to Client,
+    OrderItem{product(name)} to Product,
+    OrderItem{relatedOrder(orderNumber)} to Order,
+    Vehicle{driver(firstName)} to Driver
+}
+
+relationship OneToMany {
+    Order{orderItems} to OrderItem
+}
+
+relationship OneToOne {
+    UserProfile{user(login)} to User with builtInEntity
+}
+
+// Pagination, DTO, et Services
+paginate Product, Category, Supplier, Client, Order, Payment, Driver, Vehicle with pagination
+dto * with mapstruct
+service all with serviceClass
+
+// Utilisateurs et rôles
+relationship OneToOne {
+    Client{user(login)} to User with builtInEntity,
+    Driver{user(login)} to User with builtInEntity
+}

@@ -1,30 +1,30 @@
 import { IOrderItem, NewOrderItem } from './order-item.model';
 
 export const sampleWithRequiredData: IOrderItem = {
-  id: 25343,
-  quantity: 13167,
-  unitPrice: 2895.3,
-  totalPrice: 14047.44,
+  id: 24462,
+  quantity: 16489,
+  unitPrice: 6523.07,
+  totalPrice: 1706.06,
 };
 
 export const sampleWithPartialData: IOrderItem = {
-  id: 18338,
-  quantity: 17624,
-  unitPrice: 19710.51,
-  totalPrice: 10500.31,
+  id: 19541,
+  quantity: 22058,
+  unitPrice: 12416.65,
+  totalPrice: 16722,
 };
 
 export const sampleWithFullData: IOrderItem = {
-  id: 7120,
-  quantity: 24464,
-  unitPrice: 2878.31,
-  totalPrice: 30564.27,
+  id: 23644,
+  quantity: 24694,
+  unitPrice: 20937.36,
+  totalPrice: 22821.63,
 };
 
 export const sampleWithNewData: NewOrderItem = {
-  quantity: 22745,
-  unitPrice: 19333.89,
-  totalPrice: 22379,
+  quantity: 19290,
+  unitPrice: 26797.15,
+  totalPrice: 24448.36,
   id: null,
 };
 

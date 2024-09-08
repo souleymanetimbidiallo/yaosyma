@@ -8,6 +8,8 @@ import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Order.
@@ -26,6 +28,10 @@ public class Order implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(name = "order_number", nullable = false)
+    private String orderNumber;
+
+    @NotNull
     @Column(name = "order_date", nullable = false)
     private Instant orderDate;
 
@@ -38,20 +44,25 @@ public class Order implements Serializable {
     @Column(name = "status", nullable = false)
     private OrderStatus status;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "payment_method")
+    @Column(name = "payment_method", nullable = false)
     private PaymentMethod paymentMethod;
 
     @NotNull
     @Column(name = "delivery_address", nullable = false)
     private String deliveryAddress;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "owner" }, allowSetters = true)
-    private Store store;
+    @Column(name = "signature")
+    private String signature;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    @JsonIgnoreProperties(value = { "product", "relatedOrder", "order" }, allowSetters = true)
+    private Set<OrderItem> orderItems = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
+    private Client client;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -66,6 +77,19 @@ public class Order implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getOrderNumber() {
+        return this.orderNumber;
+    }
+
+    public Order orderNumber(String orderNumber) {
+        this.setOrderNumber(orderNumber);
+        return this;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public Instant getOrderDate() {
@@ -133,29 +157,60 @@ public class Order implements Serializable {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public Store getStore() {
-        return this.store;
+    public String getSignature() {
+        return this.signature;
     }
 
-    public void setStore(Store store) {
-        this.store = store;
-    }
-
-    public Order store(Store store) {
-        this.setStore(store);
+    public Order signature(String signature) {
+        this.setSignature(signature);
         return this;
     }
 
-    public User getUser() {
-        return this.user;
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public Set<OrderItem> getOrderItems() {
+        return this.orderItems;
     }
 
-    public Order user(User user) {
-        this.setUser(user);
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        if (this.orderItems != null) {
+            this.orderItems.forEach(i -> i.setOrder(null));
+        }
+        if (orderItems != null) {
+            orderItems.forEach(i -> i.setOrder(this));
+        }
+        this.orderItems = orderItems;
+    }
+
+    public Order orderItems(Set<OrderItem> orderItems) {
+        this.setOrderItems(orderItems);
+        return this;
+    }
+
+    public Order addOrderItems(OrderItem orderItem) {
+        this.orderItems.add(orderItem);
+        orderItem.setOrder(this);
+        return this;
+    }
+
+    public Order removeOrderItems(OrderItem orderItem) {
+        this.orderItems.remove(orderItem);
+        orderItem.setOrder(null);
+        return this;
+    }
+
+    public Client getClient() {
+        return this.client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Order client(Client client) {
+        this.setClient(client);
         return this;
     }
 
@@ -183,11 +238,13 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
             "id=" + getId() +
+            ", orderNumber='" + getOrderNumber() + "'" +
             ", orderDate='" + getOrderDate() + "'" +
             ", totalPrice=" + getTotalPrice() +
             ", status='" + getStatus() + "'" +
             ", paymentMethod='" + getPaymentMethod() + "'" +
             ", deliveryAddress='" + getDeliveryAddress() + "'" +
+            ", signature='" + getSignature() + "'" +
             "}";
     }
 }

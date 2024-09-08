@@ -28,16 +28,22 @@ public class Product implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "image")
+    private String image;
+
+    @NotNull
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
+
     @NotNull
     @Column(name = "price", precision = 21, scale = 2, nullable = false)
     private BigDecimal price;
 
-    @NotNull
-    @Column(name = "stock_quantity", nullable = false)
-    private Integer stockQuantity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
 
-    @Column(name = "category")
-    private String category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Supplier supplier;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -80,6 +86,32 @@ public class Product implements Serializable {
         this.description = description;
     }
 
+    public String getImage() {
+        return this.image;
+    }
+
+    public Product image(String image) {
+        this.setImage(image);
+        return this;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Integer getQuantity() {
+        return this.quantity;
+    }
+
+    public Product quantity(Integer quantity) {
+        this.setQuantity(quantity);
+        return this;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     public BigDecimal getPrice() {
         return this.price;
     }
@@ -93,30 +125,30 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public Integer getStockQuantity() {
-        return this.stockQuantity;
-    }
-
-    public Product stockQuantity(Integer stockQuantity) {
-        this.setStockQuantity(stockQuantity);
-        return this;
-    }
-
-    public void setStockQuantity(Integer stockQuantity) {
-        this.stockQuantity = stockQuantity;
-    }
-
-    public String getCategory() {
+    public Category getCategory() {
         return this.category;
     }
 
-    public Product category(String category) {
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Product category(Category category) {
         this.setCategory(category);
         return this;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public Supplier getSupplier() {
+        return this.supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public Product supplier(Supplier supplier) {
+        this.setSupplier(supplier);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -145,9 +177,9 @@ public class Product implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
+            ", image='" + getImage() + "'" +
+            ", quantity=" + getQuantity() +
             ", price=" + getPrice() +
-            ", stockQuantity=" + getStockQuantity() +
-            ", category='" + getCategory() + "'" +
             "}";
     }
 }

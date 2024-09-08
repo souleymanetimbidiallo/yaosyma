@@ -27,14 +27,16 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
     }
 
     @Query(
-        value = "select orderItem from OrderItem orderItem left join fetch orderItem.product",
+        value = "select orderItem from OrderItem orderItem left join fetch orderItem.product left join fetch orderItem.relatedOrder",
         countQuery = "select count(orderItem) from OrderItem orderItem"
     )
     Page<OrderItem> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select orderItem from OrderItem orderItem left join fetch orderItem.product")
+    @Query("select orderItem from OrderItem orderItem left join fetch orderItem.product left join fetch orderItem.relatedOrder")
     List<OrderItem> findAllWithToOneRelationships();
 
-    @Query("select orderItem from OrderItem orderItem left join fetch orderItem.product where orderItem.id =:id")
+    @Query(
+        "select orderItem from OrderItem orderItem left join fetch orderItem.product left join fetch orderItem.relatedOrder where orderItem.id =:id"
+    )
     Optional<OrderItem> findOneWithToOneRelationships(@Param("id") Long id);
 }

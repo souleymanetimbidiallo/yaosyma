@@ -1,0 +1,30 @@
+{
+  "yaosymaApp": {
+    "vehicle": {
+      "home": {
+        "title": "Véhicules",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Véhicule",
+        "createOrEditLabel": "Créer ou éditer un Véhicule",
+        "notFound": "Aucun Véhicule trouvé"
+      },
+      "created": "Un nouveau Véhicule a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Véhicule avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Véhicule avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Véhicule {{ id }} ?"
+      },
+      "detail": {
+        "title": "Véhicule"
+      },
+      "id": "ID",
+      "vehicleName": "Nom du Véhicule",
+      "licensePlate": "Plaque d'Immatriculation",
+      "serialNumber": "Numéro de Série",
+      "insurance": "Assurance",
+      "vehicleType": "Type de Véhicule",
+      "gpsTracker": "Traceur GPS",
+      "driver": "Chauffeur"
+    }
+  }
+}

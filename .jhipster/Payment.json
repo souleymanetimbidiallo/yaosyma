@@ -16,15 +16,14 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "paymentMethod",
-      "fieldType": "PaymentMethod",
+      "fieldName": "paymentMode",
+      "fieldType": "PaymentMode",
       "fieldValidateRules": ["required"],
-      "fieldValues": "CASH_ON_DELIVERY,MOBILE_MONEY,CREDIT_CARD"
+      "fieldValues": "ONLINE,CASH_ON_DELIVERY"
     },
     {
       "fieldName": "transactionId",
-      "fieldType": "String",
-      "fieldValidateRules": ["unique"]
+      "fieldType": "String"
     },
     {
       "fieldName": "status",
@@ -37,18 +36,18 @@
   "pagination": "pagination",
   "relationships": [
     {
+      "otherEntityField": "orderNumber",
       "otherEntityName": "order",
       "relationshipName": "order",
       "relationshipSide": "left",
       "relationshipType": "many-to-one"
     },
     {
-      "otherEntityField": "login",
-      "otherEntityName": "user",
-      "relationshipName": "user",
+      "otherEntityField": "email",
+      "otherEntityName": "client",
+      "relationshipName": "client",
       "relationshipSide": "left",
-      "relationshipType": "many-to-one",
-      "relationshipWithBuiltInEntity": true
+      "relationshipType": "many-to-one"
     }
   ],
   "searchEngine": "no",

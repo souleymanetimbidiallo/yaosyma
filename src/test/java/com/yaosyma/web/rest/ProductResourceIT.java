@@ -5,6 +5,7 @@ import static com.yaosyma.web.rest.TestUtil.createUpdateProxyForBean;
 import static com.yaosyma.web.rest.TestUtil.sameNumber;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -12,17 +13,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yaosyma.IntegrationTest;
 import com.yaosyma.domain.Product;
 import com.yaosyma.repository.ProductRepository;
+import com.yaosyma.service.ProductService;
 import com.yaosyma.service.dto.ProductDTO;
 import com.yaosyma.service.mapper.ProductMapper;
 import jakarta.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -32,6 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link ProductResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class ProductResourceIT {
@@ -42,14 +51,14 @@ class ProductResourceIT {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
+    private static final String DEFAULT_IMAGE = "AAAAAAAAAA";
+    private static final String UPDATED_IMAGE = "BBBBBBBBBB";
+
+    private static final Integer DEFAULT_QUANTITY = 1;
+    private static final Integer UPDATED_QUANTITY = 2;
+
     private static final BigDecimal DEFAULT_PRICE = new BigDecimal(1);
     private static final BigDecimal UPDATED_PRICE = new BigDecimal(2);
-
-    private static final Integer DEFAULT_STOCK_QUANTITY = 1;
-    private static final Integer UPDATED_STOCK_QUANTITY = 2;
-
-    private static final String DEFAULT_CATEGORY = "AAAAAAAAAA";
-    private static final String UPDATED_CATEGORY = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/products";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -63,8 +72,14 @@ class ProductResourceIT {
     @Autowired
     private ProductRepository productRepository;
 
+    @Mock
+    private ProductRepository productRepositoryMock;
+
     @Autowired
     private ProductMapper productMapper;
+
+    @Mock
+    private ProductService productServiceMock;
 
     @Autowired
     private EntityManager em;
@@ -86,9 +101,9 @@ class ProductResourceIT {
         Product product = new Product()
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
-            .price(DEFAULT_PRICE)
-            .stockQuantity(DEFAULT_STOCK_QUANTITY)
-            .category(DEFAULT_CATEGORY);
+            .image(DEFAULT_IMAGE)
+            .quantity(DEFAULT_QUANTITY)
+            .price(DEFAULT_PRICE);
         return product;
     }
 
@@ -102,9 +117,9 @@ class ProductResourceIT {
         Product product = new Product()
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
-            .price(UPDATED_PRICE)
-            .stockQuantity(UPDATED_STOCK_QUANTITY)
-            .category(UPDATED_CATEGORY);
+            .image(UPDATED_IMAGE)
+            .quantity(UPDATED_QUANTITY)
+            .price(UPDATED_PRICE);
         return product;
     }
 
@@ -182,10 +197,10 @@ class ProductResourceIT {
 
     @Test
     @Transactional
-    void checkPriceIsRequired() throws Exception {
+    void checkQuantityIsRequired() throws Exception {
         long databaseSizeBeforeTest = getRepositoryCount();
         // set the field null
-        product.setPrice(null);
+        product.setQuantity(null);
 
         // Create the Product, which fails.
         ProductDTO productDTO = productMapper.toDto(product);
@@ -199,10 +214,10 @@ class ProductResourceIT {
 
     @Test
     @Transactional
-    void checkStockQuantityIsRequired() throws Exception {
+    void checkPriceIsRequired() throws Exception {
         long databaseSizeBeforeTest = getRepositoryCount();
         // set the field null
-        product.setStockQuantity(null);
+        product.setPrice(null);
 
         // Create the Product, which fails.
         ProductDTO productDTO = productMapper.toDto(product);
@@ -228,9 +243,26 @@ class ProductResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
-            .andExpect(jsonPath("$.[*].price").value(hasItem(sameNumber(DEFAULT_PRICE))))
-            .andExpect(jsonPath("$.[*].stockQuantity").value(hasItem(DEFAULT_STOCK_QUANTITY)))
-            .andExpect(jsonPath("$.[*].category").value(hasItem(DEFAULT_CATEGORY)));
+            .andExpect(jsonPath("$.[*].image").value(hasItem(DEFAULT_IMAGE)))
+            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
+            .andExpect(jsonPath("$.[*].price").value(hasItem(sameNumber(DEFAULT_PRICE))));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllProductsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(productServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restProductMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(productServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllProductsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(productServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restProductMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(productRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test
@@ -247,9 +279,9 @@ class ProductResourceIT {
             .andExpect(jsonPath("$.id").value(product.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
-            .andExpect(jsonPath("$.price").value(sameNumber(DEFAULT_PRICE)))
-            .andExpect(jsonPath("$.stockQuantity").value(DEFAULT_STOCK_QUANTITY))
-            .andExpect(jsonPath("$.category").value(DEFAULT_CATEGORY));
+            .andExpect(jsonPath("$.image").value(DEFAULT_IMAGE))
+            .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY))
+            .andExpect(jsonPath("$.price").value(sameNumber(DEFAULT_PRICE)));
     }
 
     @Test
@@ -274,9 +306,9 @@ class ProductResourceIT {
         updatedProduct
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
-            .price(UPDATED_PRICE)
-            .stockQuantity(UPDATED_STOCK_QUANTITY)
-            .category(UPDATED_CATEGORY);
+            .image(UPDATED_IMAGE)
+            .quantity(UPDATED_QUANTITY)
+            .price(UPDATED_PRICE);
         ProductDTO productDTO = productMapper.toDto(updatedProduct);
 
         restProductMockMvc
@@ -362,7 +394,7 @@ class ProductResourceIT {
         Product partialUpdatedProduct = new Product();
         partialUpdatedProduct.setId(product.getId());
 
-        partialUpdatedProduct.name(UPDATED_NAME).price(UPDATED_PRICE);
+        partialUpdatedProduct.description(UPDATED_DESCRIPTION).image(UPDATED_IMAGE).price(UPDATED_PRICE);
 
         restProductMockMvc
             .perform(
@@ -393,9 +425,9 @@ class ProductResourceIT {
         partialUpdatedProduct
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
-            .price(UPDATED_PRICE)
-            .stockQuantity(UPDATED_STOCK_QUANTITY)
-            .category(UPDATED_CATEGORY);
+            .image(UPDATED_IMAGE)
+            .quantity(UPDATED_QUANTITY)
+            .price(UPDATED_PRICE);
 
         restProductMockMvc
             .perform(

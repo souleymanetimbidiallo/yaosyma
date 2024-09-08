@@ -3,10 +3,10 @@
     "OrderStatus": {
       "null": "",
       "PENDING": "EN ATTENTE",
-      "CONFIRMED": "CONFIRMÉE",
-      "SHIPPED": "EXPÉDIÉE",
-      "DELIVERED": "LIVRÉE",
-      "CANCELLED": "ANNULÉE"
+      "CONFIRMED": "CONFIRMÉ",
+      "SHIPPED": "EXPÉDIÉ",
+      "DELIVERED": "LIVRÉ",
+      "CANCELLED": "ANNULÉ"
     }
   }
 }

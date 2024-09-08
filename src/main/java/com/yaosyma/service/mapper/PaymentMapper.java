@@ -1,11 +1,11 @@
 package com.yaosyma.service.mapper;
 
+import com.yaosyma.domain.Client;
 import com.yaosyma.domain.Order;
 import com.yaosyma.domain.Payment;
-import com.yaosyma.domain.User;
+import com.yaosyma.service.dto.ClientDTO;
 import com.yaosyma.service.dto.OrderDTO;
 import com.yaosyma.service.dto.PaymentDTO;
-import com.yaosyma.service.dto.UserDTO;
 import org.mapstruct.*;
 
 /**
@@ -13,18 +13,19 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface PaymentMapper extends EntityMapper<PaymentDTO, Payment> {
-    @Mapping(target = "order", source = "order", qualifiedByName = "orderId")
-    @Mapping(target = "user", source = "user", qualifiedByName = "userLogin")
+    @Mapping(target = "order", source = "order", qualifiedByName = "orderOrderNumber")
+    @Mapping(target = "client", source = "client", qualifiedByName = "clientEmail")
     PaymentDTO toDto(Payment s);
 
-    @Named("orderId")
+    @Named("orderOrderNumber")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    OrderDTO toDtoOrderId(Order order);
+    @Mapping(target = "orderNumber", source = "orderNumber")
+    OrderDTO toDtoOrderOrderNumber(Order order);
 
-    @Named("userLogin")
+    @Named("clientEmail")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "login", source = "login")
-    UserDTO toDtoUserLogin(User user);
+    @Mapping(target = "email", source = "email")
+    ClientDTO toDtoClientEmail(Client client);
 }

@@ -3,36 +3,44 @@ import dayjs from 'dayjs/esm';
 import { IOrder, NewOrder } from './order.model';
 
 export const sampleWithRequiredData: IOrder = {
-  id: 2537,
-  orderDate: dayjs('2024-09-01T06:00'),
-  totalPrice: 5807.74,
-  status: 'PENDING',
-  deliveryAddress: 'en bas de en bas de',
+  id: 27387,
+  orderNumber: 'déjà',
+  orderDate: dayjs('2024-08-31T11:59'),
+  totalPrice: 21130.65,
+  status: 'DELIVERED',
+  paymentMethod: 'PAYPAL',
+  deliveryAddress: 'échapper pin-pon dès que',
 };
 
 export const sampleWithPartialData: IOrder = {
-  id: 7648,
-  orderDate: dayjs('2024-08-31T15:04'),
-  totalPrice: 6662.25,
-  status: 'PENDING',
-  paymentMethod: 'CREDIT_CARD',
-  deliveryAddress: 'areu areu',
+  id: 4315,
+  orderNumber: 'bien que devant proche de',
+  orderDate: dayjs('2024-09-01T00:54'),
+  totalPrice: 3007.56,
+  status: 'CONFIRMED',
+  paymentMethod: 'CASH_ON_DELIVERY',
+  deliveryAddress: 'rapide',
+  signature: 'circuler près de',
 };
 
 export const sampleWithFullData: IOrder = {
-  id: 1103,
-  orderDate: dayjs('2024-09-01T05:49'),
-  totalPrice: 6638.85,
-  status: 'DELIVERED',
-  paymentMethod: 'CREDIT_CARD',
-  deliveryAddress: 'totalement biathlète alors que',
+  id: 3629,
+  orderNumber: 'apprivoiser oui',
+  orderDate: dayjs('2024-08-31T15:09'),
+  totalPrice: 8129.75,
+  status: 'PENDING',
+  paymentMethod: 'BANK_TRANSFER',
+  deliveryAddress: 'divinement pourvu que alors',
+  signature: "d'après contraindre",
 };
 
 export const sampleWithNewData: NewOrder = {
-  orderDate: dayjs('2024-08-31T14:20'),
-  totalPrice: 7579.53,
+  orderNumber: 'toc-toc',
+  orderDate: dayjs('2024-09-01T10:10'),
+  totalPrice: 1445.11,
   status: 'DELIVERED',
-  deliveryAddress: 'afin que tandis que',
+  paymentMethod: 'PAYPAL',
+  deliveryAddress: 'plic satisfaire aïe',
   id: null,
 };
 

@@ -35,11 +35,16 @@ public class OrderItem implements Serializable {
     private BigDecimal totalPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "store", "user" }, allowSetters = true)
-    private Order order;
+    @JsonIgnoreProperties(value = { "category", "supplier" }, allowSetters = true)
+    private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Product product;
+    @JsonIgnoreProperties(value = { "orderItems", "client" }, allowSetters = true)
+    private Order relatedOrder;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = { "orderItems", "client" }, allowSetters = true)
+    private Order order;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -95,19 +100,6 @@ public class OrderItem implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    public Order getOrder() {
-        return this.order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public OrderItem order(Order order) {
-        this.setOrder(order);
-        return this;
-    }
-
     public Product getProduct() {
         return this.product;
     }
@@ -118,6 +110,32 @@ public class OrderItem implements Serializable {
 
     public OrderItem product(Product product) {
         this.setProduct(product);
+        return this;
+    }
+
+    public Order getRelatedOrder() {
+        return this.relatedOrder;
+    }
+
+    public void setRelatedOrder(Order order) {
+        this.relatedOrder = order;
+    }
+
+    public OrderItem relatedOrder(Order order) {
+        this.setRelatedOrder(order);
+        return this;
+    }
+
+    public Order getOrder() {
+        return this.order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public OrderItem order(Order order) {
+        this.setOrder(order);
         return this;
     }
 

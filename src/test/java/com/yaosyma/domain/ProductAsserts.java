@@ -50,9 +50,9 @@ public class ProductAsserts {
             .as("Verify Product relevant properties")
             .satisfies(e -> assertThat(e.getName()).as("check name").isEqualTo(actual.getName()))
             .satisfies(e -> assertThat(e.getDescription()).as("check description").isEqualTo(actual.getDescription()))
-            .satisfies(e -> assertThat(e.getPrice()).as("check price").usingComparator(bigDecimalCompareTo).isEqualTo(actual.getPrice()))
-            .satisfies(e -> assertThat(e.getStockQuantity()).as("check stockQuantity").isEqualTo(actual.getStockQuantity()))
-            .satisfies(e -> assertThat(e.getCategory()).as("check category").isEqualTo(actual.getCategory()));
+            .satisfies(e -> assertThat(e.getImage()).as("check image").isEqualTo(actual.getImage()))
+            .satisfies(e -> assertThat(e.getQuantity()).as("check quantity").isEqualTo(actual.getQuantity()))
+            .satisfies(e -> assertThat(e.getPrice()).as("check price").usingComparator(bigDecimalCompareTo).isEqualTo(actual.getPrice()));
     }
 
     /**
@@ -61,5 +61,10 @@ public class ProductAsserts {
      * @param expected the expected entity
      * @param actual the actual entity
      */
-    public static void assertProductUpdatableRelationshipsEquals(Product expected, Product actual) {}
+    public static void assertProductUpdatableRelationshipsEquals(Product expected, Product actual) {
+        assertThat(expected)
+            .as("Verify Product relationships")
+            .satisfies(e -> assertThat(e.getCategory()).as("check category").isEqualTo(actual.getCategory()))
+            .satisfies(e -> assertThat(e.getSupplier()).as("check supplier").isEqualTo(actual.getSupplier()));
+    }
 }

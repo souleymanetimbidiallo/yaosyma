@@ -6,8 +6,8 @@ import { of, Subject, from } from 'rxjs';
 
 import { IOrder } from 'app/entities/order/order.model';
 import { OrderService } from 'app/entities/order/service/order.service';
-import { IUser } from 'app/entities/user/user.model';
-import { UserService } from 'app/entities/user/service/user.service';
+import { IClient } from 'app/entities/client/client.model';
+import { ClientService } from 'app/entities/client/service/client.service';
 import { IPayment } from '../payment.model';
 import { PaymentService } from '../service/payment.service';
 import { PaymentFormService } from './payment-form.service';
@@ -21,7 +21,7 @@ describe('Payment Management Update Component', () => {
   let paymentFormService: PaymentFormService;
   let paymentService: PaymentService;
   let orderService: OrderService;
-  let userService: UserService;
+  let clientService: ClientService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -45,7 +45,7 @@ describe('Payment Management Update Component', () => {
     paymentFormService = TestBed.inject(PaymentFormService);
     paymentService = TestBed.inject(PaymentService);
     orderService = TestBed.inject(OrderService);
-    userService = TestBed.inject(UserService);
+    clientService = TestBed.inject(ClientService);
 
     comp = fixture.componentInstance;
   });
@@ -53,10 +53,10 @@ describe('Payment Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Order query and add missing value', () => {
       const payment: IPayment = { id: 456 };
-      const order: IOrder = { id: 24212 };
+      const order: IOrder = { id: 18499 };
       payment.order = order;
 
-      const orderCollection: IOrder[] = [{ id: 7126 }];
+      const orderCollection: IOrder[] = [{ id: 20437 }];
       jest.spyOn(orderService, 'query').mockReturnValue(of(new HttpResponse({ body: orderCollection })));
       const additionalOrders = [order];
       const expectedCollection: IOrder[] = [...additionalOrders, ...orderCollection];
@@ -73,40 +73,40 @@ describe('Payment Management Update Component', () => {
       expect(comp.ordersSharedCollection).toEqual(expectedCollection);
     });
 
-    it('Should call User query and add missing value', () => {
+    it('Should call Client query and add missing value', () => {
       const payment: IPayment = { id: 456 };
-      const user: IUser = { id: 3372 };
-      payment.user = user;
+      const client: IClient = { id: 12054 };
+      payment.client = client;
 
-      const userCollection: IUser[] = [{ id: 20381 }];
-      jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
-      const additionalUsers = [user];
-      const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
-      jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const clientCollection: IClient[] = [{ id: 11391 }];
+      jest.spyOn(clientService, 'query').mockReturnValue(of(new HttpResponse({ body: clientCollection })));
+      const additionalClients = [client];
+      const expectedCollection: IClient[] = [...additionalClients, ...clientCollection];
+      jest.spyOn(clientService, 'addClientToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ payment });
       comp.ngOnInit();
 
-      expect(userService.query).toHaveBeenCalled();
-      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(
-        userCollection,
-        ...additionalUsers.map(expect.objectContaining),
+      expect(clientService.query).toHaveBeenCalled();
+      expect(clientService.addClientToCollectionIfMissing).toHaveBeenCalledWith(
+        clientCollection,
+        ...additionalClients.map(expect.objectContaining),
       );
-      expect(comp.usersSharedCollection).toEqual(expectedCollection);
+      expect(comp.clientsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const payment: IPayment = { id: 456 };
-      const order: IOrder = { id: 32666 };
+      const order: IOrder = { id: 24322 };
       payment.order = order;
-      const user: IUser = { id: 9851 };
-      payment.user = user;
+      const client: IClient = { id: 3447 };
+      payment.client = client;
 
       activatedRoute.data = of({ payment });
       comp.ngOnInit();
 
       expect(comp.ordersSharedCollection).toContain(order);
-      expect(comp.usersSharedCollection).toContain(user);
+      expect(comp.clientsSharedCollection).toContain(client);
       expect(comp.payment).toEqual(payment);
     });
   });
@@ -190,13 +190,13 @@ describe('Payment Management Update Component', () => {
       });
     });
 
-    describe('compareUser', () => {
-      it('Should forward to userService', () => {
+    describe('compareClient', () => {
+      it('Should forward to clientService', () => {
         const entity = { id: 123 };
         const entity2 = { id: 456 };
-        jest.spyOn(userService, 'compareUser');
-        comp.compareUser(entity, entity2);
-        expect(userService.compareUser).toHaveBeenCalledWith(entity, entity2);
+        jest.spyOn(clientService, 'compareClient');
+        comp.compareClient(entity, entity2);
+        expect(clientService.compareClient).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

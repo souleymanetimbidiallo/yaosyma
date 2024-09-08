@@ -4,7 +4,10 @@ import com.yaosyma.domain.UserProfile;
 import com.yaosyma.repository.UserProfileRepository;
 import com.yaosyma.service.dto.UserProfileDTO;
 import com.yaosyma.service.mapper.UserProfileMapper;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -79,13 +82,12 @@ public class UserProfileService {
     /**
      * Get all the userProfiles.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public Page<UserProfileDTO> findAll(Pageable pageable) {
+    public List<UserProfileDTO> findAll() {
         log.debug("Request to get all UserProfiles");
-        return userProfileRepository.findAll(pageable).map(userProfileMapper::toDto);
+        return userProfileRepository.findAll().stream().map(userProfileMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**

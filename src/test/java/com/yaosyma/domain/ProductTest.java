@@ -1,6 +1,8 @@
 package com.yaosyma.domain;
 
+import static com.yaosyma.domain.CategoryTestSamples.*;
 import static com.yaosyma.domain.ProductTestSamples.*;
+import static com.yaosyma.domain.SupplierTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.yaosyma.web.rest.TestUtil;
@@ -20,5 +22,29 @@ class ProductTest {
 
         product2 = getProductSample2();
         assertThat(product1).isNotEqualTo(product2);
+    }
+
+    @Test
+    void categoryTest() {
+        Product product = getProductRandomSampleGenerator();
+        Category categoryBack = getCategoryRandomSampleGenerator();
+
+        product.setCategory(categoryBack);
+        assertThat(product.getCategory()).isEqualTo(categoryBack);
+
+        product.category(null);
+        assertThat(product.getCategory()).isNull();
+    }
+
+    @Test
+    void supplierTest() {
+        Product product = getProductRandomSampleGenerator();
+        Supplier supplierBack = getSupplierRandomSampleGenerator();
+
+        product.setSupplier(supplierBack);
+        assertThat(product.getSupplier()).isEqualTo(supplierBack);
+
+        product.supplier(null);
+        assertThat(product.getSupplier()).isNull();
     }
 }

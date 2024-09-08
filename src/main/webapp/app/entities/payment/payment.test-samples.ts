@@ -3,35 +3,35 @@ import dayjs from 'dayjs/esm';
 import { IPayment, NewPayment } from './payment.model';
 
 export const sampleWithRequiredData: IPayment = {
-  id: 15175,
-  paymentDate: dayjs('2024-08-31T22:57'),
-  amount: 31757.7,
-  paymentMethod: 'MOBILE_MONEY',
-  status: 'COMPLETED',
+  id: 12708,
+  paymentDate: dayjs('2024-08-31T12:19'),
+  amount: 16629.83,
+  paymentMode: 'ONLINE',
+  status: 'FAILED',
 };
 
 export const sampleWithPartialData: IPayment = {
-  id: 32493,
-  paymentDate: dayjs('2024-08-31T22:50'),
-  amount: 11587.66,
-  paymentMethod: 'CREDIT_CARD',
-  status: 'COMPLETED',
+  id: 4439,
+  paymentDate: dayjs('2024-08-31T17:11'),
+  amount: 15810.61,
+  paymentMode: 'CASH_ON_DELIVERY',
+  status: 'FAILED',
 };
 
 export const sampleWithFullData: IPayment = {
-  id: 4213,
-  paymentDate: dayjs('2024-09-01T08:49'),
-  amount: 24172.59,
-  paymentMethod: 'MOBILE_MONEY',
-  transactionId: 'remonter brave nonobstant',
-  status: 'PENDING',
+  id: 716,
+  paymentDate: dayjs('2024-08-31T21:19'),
+  amount: 15282.39,
+  paymentMode: 'CASH_ON_DELIVERY',
+  transactionId: 'adorable responsable parlementaire',
+  status: 'COMPLETED',
 };
 
 export const sampleWithNewData: NewPayment = {
-  paymentDate: dayjs('2024-08-31T11:20'),
-  amount: 28159.66,
-  paymentMethod: 'CASH_ON_DELIVERY',
-  status: 'REFUNDED',
+  paymentDate: dayjs('2024-08-31T20:15'),
+  amount: 2698.87,
+  paymentMode: 'ONLINE',
+  status: 'PENDING',
   id: null,
 };
 

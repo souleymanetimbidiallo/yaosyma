@@ -20,9 +20,11 @@
       "id": "ID",
       "name": "Name",
       "description": "Description",
+      "image": "Image",
+      "quantity": "Quantity",
       "price": "Price",
-      "stockQuantity": "Stock Quantity",
-      "category": "Category"
+      "category": "Category",
+      "supplier": "Supplier"
     }
   }
 }

@@ -19,7 +19,6 @@
     }
   ],
   "name": "UserProfile",
-  "pagination": "pagination",
   "relationships": [
     {
       "otherEntityField": "login",

@@ -22,18 +22,18 @@
     }
   ],
   "name": "OrderItem",
-  "pagination": "pagination",
   "relationships": [
-    {
-      "otherEntityName": "order",
-      "relationshipName": "order",
-      "relationshipSide": "left",
-      "relationshipType": "many-to-one"
-    },
     {
       "otherEntityField": "name",
       "otherEntityName": "product",
       "relationshipName": "product",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "orderNumber",
+      "otherEntityName": "order",
+      "relationshipName": "relatedOrder",
       "relationshipSide": "left",
       "relationshipType": "many-to-one"
     }

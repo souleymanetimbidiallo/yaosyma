@@ -23,12 +23,10 @@
           <dd>
             <span>{{ payment()!.amount }}</span>
           </dd>
-          <dt><span jhiTranslate="yaosymaApp.payment.paymentMethod">Payment Method</span></dt>
+          <dt><span jhiTranslate="yaosymaApp.payment.paymentMode">Payment Mode</span></dt>
           <dd>
-            <span [jhiTranslate]="'yaosymaApp.PaymentMethod.' + (payment()!.paymentMethod ?? 'null')">{{
-              { null: '', CASH_ON_DELIVERY: 'CASH_ON_DELIVERY', MOBILE_MONEY: 'MOBILE_MONEY', CREDIT_CARD: 'CREDIT_CARD' }[
-                payment()!.paymentMethod ?? 'null'
-              ]
+            <span [jhiTranslate]="'yaosymaApp.PaymentMode.' + (payment()!.paymentMode ?? 'null')">{{
+              { null: '', ONLINE: 'ONLINE', CASH_ON_DELIVERY: 'CASH_ON_DELIVERY' }[payment()!.paymentMode ?? 'null']
             }}</span>
           </dd>
           <dt><span jhiTranslate="yaosymaApp.payment.transactionId">Transaction Id</span></dt>
@@ -45,13 +43,17 @@
           <dd>
             @if (payment()!.order) {
               <div>
-                <a [routerLink]="['/order', payment()!.order?.id, 'view']">{{ payment()!.order?.id }}</a>
+                <a [routerLink]="['/order', payment()!.order?.id, 'view']">{{ payment()!.order?.orderNumber }}</a>
               </div>
             }
           </dd>
-          <dt><span jhiTranslate="yaosymaApp.payment.user">User</span></dt>
+          <dt><span jhiTranslate="yaosymaApp.payment.client">Client</span></dt>
           <dd>
-            <span>{{ payment()!.user?.login }}</span>
+            @if (payment()!.client) {
+              <div>
+                <a [routerLink]="['/client', payment()!.client?.id, 'view']">{{ payment()!.client?.email }}</a>
+              </div>
+            }
           </dd>
         </dl>
 

@@ -20,13 +20,14 @@ describe('Order Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
+            orderNumber: expect.any(Object),
             orderDate: expect.any(Object),
             totalPrice: expect.any(Object),
             status: expect.any(Object),
             paymentMethod: expect.any(Object),
             deliveryAddress: expect.any(Object),
-            store: expect.any(Object),
-            user: expect.any(Object),
+            signature: expect.any(Object),
+            client: expect.any(Object),
           }),
         );
       });
@@ -37,13 +38,14 @@ describe('Order Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
+            orderNumber: expect.any(Object),
             orderDate: expect.any(Object),
             totalPrice: expect.any(Object),
             status: expect.any(Object),
             paymentMethod: expect.any(Object),
             deliveryAddress: expect.any(Object),
-            store: expect.any(Object),
-            user: expect.any(Object),
+            signature: expect.any(Object),
+            client: expect.any(Object),
           }),
         );
       });

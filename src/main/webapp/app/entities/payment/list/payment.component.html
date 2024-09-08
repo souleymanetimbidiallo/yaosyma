@@ -56,9 +56,9 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="paymentMethod">
+            <th scope="col" jhiSortBy="paymentMode">
               <div class="d-flex">
-                <span jhiTranslate="yaosymaApp.payment.paymentMethod">Payment Method</span>
+                <span jhiTranslate="yaosymaApp.payment.paymentMode">Payment Mode</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
@@ -77,15 +77,15 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="order.id">
+            <th scope="col" jhiSortBy="order.orderNumber">
               <div class="d-flex">
                 <span jhiTranslate="yaosymaApp.payment.order">Order</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="user.login">
+            <th scope="col" jhiSortBy="client.email">
               <div class="d-flex">
-                <span jhiTranslate="yaosymaApp.payment.user">User</span>
+                <span jhiTranslate="yaosymaApp.payment.client">Client</span>
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
@@ -100,12 +100,8 @@
               </td>
               <td>{{ payment.paymentDate | formatMediumDatetime }}</td>
               <td>{{ payment.amount }}</td>
-              <td [jhiTranslate]="'yaosymaApp.PaymentMethod.' + (payment.paymentMethod ?? 'null')">
-                {{
-                  { null: '', CASH_ON_DELIVERY: 'CASH_ON_DELIVERY', MOBILE_MONEY: 'MOBILE_MONEY', CREDIT_CARD: 'CREDIT_CARD' }[
-                    payment.paymentMethod ?? 'null'
-                  ]
-                }}
+              <td [jhiTranslate]="'yaosymaApp.PaymentMode.' + (payment.paymentMode ?? 'null')">
+                {{ { null: '', ONLINE: 'ONLINE', CASH_ON_DELIVERY: 'CASH_ON_DELIVERY' }[payment.paymentMode ?? 'null'] }}
               </td>
               <td>{{ payment.transactionId }}</td>
               <td [jhiTranslate]="'yaosymaApp.PaymentStatus.' + (payment.status ?? 'null')">
@@ -116,12 +112,16 @@
               <td>
                 @if (payment.order) {
                   <div>
-                    <a [routerLink]="['/order', payment.order.id, 'view']">{{ payment.order.id }}</a>
+                    <a [routerLink]="['/order', payment.order.id, 'view']">{{ payment.order.orderNumber }}</a>
                   </div>
                 }
               </td>
               <td>
-                {{ payment.user?.login }}
+                @if (payment.client) {
+                  <div>
+                    <a [routerLink]="['/client', payment.client.id, 'view']">{{ payment.client.email }}</a>
+                  </div>
+                }
               </td>
               <td class="text-end">
                 <div class="btn-group">

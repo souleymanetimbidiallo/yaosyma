@@ -1,10 +1,13 @@
 package com.yaosyma.domain;
 
+import static com.yaosyma.domain.ClientTestSamples.*;
+import static com.yaosyma.domain.OrderItemTestSamples.*;
 import static com.yaosyma.domain.OrderTestSamples.*;
-import static com.yaosyma.domain.StoreTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.yaosyma.web.rest.TestUtil;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 class OrderTest {
@@ -24,14 +27,36 @@ class OrderTest {
     }
 
     @Test
-    void storeTest() {
+    void orderItemsTest() {
         Order order = getOrderRandomSampleGenerator();
-        Store storeBack = getStoreRandomSampleGenerator();
+        OrderItem orderItemBack = getOrderItemRandomSampleGenerator();
 
-        order.setStore(storeBack);
-        assertThat(order.getStore()).isEqualTo(storeBack);
+        order.addOrderItems(orderItemBack);
+        assertThat(order.getOrderItems()).containsOnly(orderItemBack);
+        assertThat(orderItemBack.getOrder()).isEqualTo(order);
 
-        order.store(null);
-        assertThat(order.getStore()).isNull();
+        order.removeOrderItems(orderItemBack);
+        assertThat(order.getOrderItems()).doesNotContain(orderItemBack);
+        assertThat(orderItemBack.getOrder()).isNull();
+
+        order.orderItems(new HashSet<>(Set.of(orderItemBack)));
+        assertThat(order.getOrderItems()).containsOnly(orderItemBack);
+        assertThat(orderItemBack.getOrder()).isEqualTo(order);
+
+        order.setOrderItems(new HashSet<>());
+        assertThat(order.getOrderItems()).doesNotContain(orderItemBack);
+        assertThat(orderItemBack.getOrder()).isNull();
+    }
+
+    @Test
+    void clientTest() {
+        Order order = getOrderRandomSampleGenerator();
+        Client clientBack = getClientRandomSampleGenerator();
+
+        order.setClient(clientBack);
+        assertThat(order.getClient()).isEqualTo(clientBack);
+
+        order.client(null);
+        assertThat(order.getClient()).isNull();
     }
 }

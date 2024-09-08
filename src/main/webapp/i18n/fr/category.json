@@ -1,0 +1,24 @@
+{
+  "yaosymaApp": {
+    "category": {
+      "home": {
+        "title": "Catégories",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer une nouvelle catégorie",
+        "createOrEditLabel": "Créer ou éditer une catégorie",
+        "notFound": "Aucune catégorie trouvée"
+      },
+      "created": "Une nouvelle catégorie a été créé avec l'identifiant {{ param }}",
+      "updated": "La catégorie avec l'identifiant {{ param }} a été mise à jour",
+      "deleted": "La catégorie avec l'identifiant {{ param }} a été supprimée",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer la catégorie {{ id }} ?"
+      },
+      "detail": {
+        "title": "Catégorie"
+      },
+      "id": "ID",
+      "name": "Nom"
+    }
+  }
+}

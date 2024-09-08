@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (vehicle()) {
+      <div>
+        <h2 data-cy="vehicleDetailsHeading"><span jhiTranslate="yaosymaApp.vehicle.detail.title">Vehicle</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ vehicle()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.vehicle.vehicleName">Vehicle Name</span></dt>
+          <dd>
+            <span>{{ vehicle()!.vehicleName }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.vehicle.licensePlate">License Plate</span></dt>
+          <dd>
+            <span>{{ vehicle()!.licensePlate }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.vehicle.serialNumber">Serial Number</span></dt>
+          <dd>
+            <span>{{ vehicle()!.serialNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.vehicle.insurance">Insurance</span></dt>
+          <dd>
+            <span>{{ vehicle()!.insurance }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.vehicle.vehicleType">Vehicle Type</span></dt>
+          <dd>
+            <span>{{ vehicle()!.vehicleType }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.vehicle.gpsTracker">Gps Tracker</span></dt>
+          <dd>
+            <span>{{ vehicle()!.gpsTracker }}</span>
+          </dd>
+          <dt><span jhiTranslate="yaosymaApp.vehicle.driver">Driver</span></dt>
+          <dd>
+            @if (vehicle()!.driver) {
+              <div>
+                <a [routerLink]="['/driver', vehicle()!.driver?.id, 'view']">{{ vehicle()!.driver?.firstName }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/vehicle', vehicle()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

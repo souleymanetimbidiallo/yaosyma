@@ -4,27 +4,29 @@
       "home": {
         "title": "Commandes",
         "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer une nouvelle commande",
+        "createLabel": "Créer une nouvelle Commande",
         "createOrEditLabel": "Créer ou éditer une Commande",
-        "notFound": "Aucune commande trouvé"
+        "notFound": "Aucune Commande trouvée"
       },
-      "created": "Un nouvelle commande a été créé avec l'identifiant {{ param }}",
-      "updated": "La commande avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "La commande avec l'identifiant {{ param }} a été supprimé",
+      "created": "Une nouvelle Commande a été créée avec l'identifiant {{ param }}",
+      "updated": "La Commande avec l'identifiant {{ param }} a été mise à jour",
+      "deleted": "La Commande avec l'identifiant {{ param }} a été supprimée",
       "delete": {
-        "question": "Êtes-vous certain de vouloir supprimer la commande {{ id }} ?"
+        "question": "Êtes-vous certain de vouloir supprimer la Commande {{ id }} ?"
       },
       "detail": {
         "title": "Commande"
       },
       "id": "ID",
-      "orderDate": "Date de commande",
-      "totalPrice": "Prix total",
+      "orderNumber": "Numéro de Commande",
+      "orderDate": "Date de Commande",
+      "totalPrice": "Prix Total",
       "status": "Statut",
-      "paymentMethod": "Méthode de paiement",
-      "deliveryAddress": "Adresse de livraison",
-      "store": "Magasin",
-      "user": "Utilisateur"
+      "paymentMethod": "Méthode de Paiement",
+      "deliveryAddress": "Adresse de Livraison",
+      "signature": "Signature",
+      "orderItems": "Articles de la Commande",
+      "client": "Client"
     }
   }
 }
