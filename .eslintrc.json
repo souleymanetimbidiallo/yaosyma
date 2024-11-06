@@ -10,6 +10,12 @@
     "prettier",
     "eslint-config-prettier"
   ],
+  "ignorePatterns": [
+    "src/main/webapp/content/js/jquery-1.11.0.min.js",
+    "src/main/webapp/content/js/modernizr.js",
+    "src/main/webapp/content/js/plugins.js",
+    "src/main/webapp/content/js/script.js"
+  ],
   "env": {
     "browser": true,
     "es6": true,
